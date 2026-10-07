@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bhbmwvap8hr5f"]
+
+[ext_resource type="PackedScene" uid="uid://caueui2bcpaxy" path="res://fighter.tscn" id="1_0qdl2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2h0f"]
+size = Vector2(1280, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxl44"]
+size = Vector2(40, 730)
+
+[node name="ArenaTest" type="Node2D" unique_id=1586392843]
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=719407713]
+position = Vector2(640, 700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=1038269381]
+shape = SubResource("RectangleShape2D_o2h0f")
+
+[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=1579338559]
+offset_left = -640.0
+offset_top = -20.0
+offset_right = 640.0
+offset_bottom = 20.0
+color = Color(0.45202345, 0.45203644, 0.4070662, 1)
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=1688091645]
+position = Vector2(-20, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=967142484]
+shape = SubResource("RectangleShape2D_pxl44")
+
+[node name="WallRight" type="StaticBody2D" parent="." unique_id=180872044]
+position = Vector2(1300, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight" unique_id=1264594264]
+shape = SubResource("RectangleShape2D_pxl44")
+
+[node name="Fighter" parent="." unique_id=178267162 instance=ExtResource("1_0qdl2")]
+position = Vector2(400, 600)
