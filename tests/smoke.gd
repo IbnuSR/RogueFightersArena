@@ -113,6 +113,50 @@ func _run() -> void:
 	_check(arena.get_node("Fighter").get("character_id") == "shinobi", "P1 jadi shinobi")
 	_check(arena.get_node("Fighter2").get("character_id") == "samurai", "P2 jadi samurai")
 
+	# 7. Karakter AI: Arga (10 animasi, frame 256px)
+	gs.p1_character = "arga"
+	gs.p2_character = "arga"
+	arena._on_restart()
+	await _frames(30)
+	arena = current_scene
+	var fa = arena.get_node("Fighter")
+	_check(fa.get("character_id") == "arga", "P1 jadi arga")
+	_check(fa.get_node("Sprite").sprite_frames.get_animation_names().size() == 10, "Arga punya 10 animasi")
+
+	# 8. Marco: 10 animasi + stat sesuai GDD (hp 90, dmg 0.9, spd 1.15)
+	gs.p1_character = "marco"
+	arena._on_restart()
+	await _frames(30)
+	arena = current_scene
+	var fm = arena.get_node("Fighter")
+	_check(fm.get("character_id") == "marco", "P1 jadi marco")
+	_check(fm.get_node("Sprite").sprite_frames.get_animation_names().size() == 10, "Marco punya 10 animasi")
+	_check(fm.get("max_health") == 90, "Marco HP 90")
+	_check(abs(fm.get("spd_mult") - 1.15) < 0.01, "Marco speed 1.15x")
+
+	# 9. Semua 12 karakter: 10 animasi + stat terisi + semua animasi bisa diputar
+	var all_chars := ["samurai", "shinobi", "arga", "marco", "dmitri", "lin",
+		"nok", "sora", "tyrone", "han", "valeria", "anika"]
+	var anims := ["idle", "walk", "run", "jump", "attack_1", "attack_2", "attack_3",
+		"shield", "hurt", "dead"]
+	for cid in all_chars:
+		gs.p1_character = cid
+		gs.p2_character = cid
+		arena._on_restart()
+		await _frames(20)
+		arena = current_scene
+		var f = arena.get_node("Fighter")
+		var sf = f.get_node("Sprite").sprite_frames
+		_check(sf.get_animation_names().size() == 10, cid + ": 10 animasi")
+		_check(f.get("max_health") > 0, cid + ": HP valid")
+		var names: PackedStringArray = sf.get_animation_names()
+		for an in anims:
+			_check(names.has(an), cid + ": ada anim " + an)
+			_check(sf.get_frame_count(an) > 0, cid + "/" + an + ": frame > 0")
+		# posisi sprite valid (tidak NaN, di dalam layar)
+		var sp: Vector2 = f.get_node("Sprite").position
+		_check(abs(sp.y) < 400.0, cid + ": sprite y wajar")
+
 	_finish()
 
 

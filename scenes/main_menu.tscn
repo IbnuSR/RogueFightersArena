@@ -87,15 +87,10 @@ alignment = 1
 theme_override_font_sizes/font_size = 20
 text = "KARAKTER P1"
 
-[node name="BtnP1Sam" type="Button" parent="Center/VBox/P1Row"]
-custom_minimum_size = Vector2(140, 44)
-theme_override_font_sizes/font_size = 20
-text = "SAMURAI"
-
-[node name="BtnP1Shi" type="Button" parent="Center/VBox/P1Row"]
-custom_minimum_size = Vector2(140, 44)
-theme_override_font_sizes/font_size = 20
-text = "SHINOBI"
+[node name="P1Grid" type="GridContainer" parent="Center/VBox/P1Row"]
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
 
 [node name="P2Row" type="HBoxContainer" parent="Center/VBox"]
 theme_override_constants/separation = 10
@@ -105,15 +100,10 @@ alignment = 1
 theme_override_font_sizes/font_size = 20
 text = "KARAKTER P2"
 
-[node name="BtnP2Sam" type="Button" parent="Center/VBox/P2Row"]
-custom_minimum_size = Vector2(140, 44)
-theme_override_font_sizes/font_size = 20
-text = "SAMURAI"
-
-[node name="BtnP2Shi" type="Button" parent="Center/VBox/P2Row"]
-custom_minimum_size = Vector2(140, 44)
-theme_override_font_sizes/font_size = 20
-text = "SHINOBI"
+[node name="P2Grid" type="GridContainer" parent="Center/VBox/P2Row"]
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
 
 [node name="BtnStart" type="Button" parent="Center/VBox"]
 custom_minimum_size = Vector2(320, 56)
