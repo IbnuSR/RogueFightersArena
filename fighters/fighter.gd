@@ -2,12 +2,36 @@ extends CharacterBody2D
 
 signal health_changed(current: int, maximum: int)
 signal died
+signal got_hit(damage: int)
+signal did_block()
 
 @export var body_color: Color = Color(0.2, 0.4, 1.0)
 @export var walk_speed: float = 300.0
 @export var jump_velocity: float = -900.0
 @export var gravity: float = 2400.0
 @export var max_health: int = 100
+@export var character_id: String = "samurai"
+
+# Data sprite per karakter: [jumlah_frame, lebar_frame_px] untuk tiap animasi.
+# (Dihitung dari file PNG aslinya, cocok dengan potongan di scene.)
+const CHARACTERS := {
+	"samurai": {
+		"folder": "res://assets/fighters/fighter_samurai",
+		"frames": {
+			"attack_1": [7, 109], "attack_2": [5, 102], "attack_3": [3, 128],
+			"dead": [3, 128], "hurt": [2, 128], "idle": [6, 128],
+			"jump": [12, 128], "run": [8, 128], "shield": [2, 128], "walk": [8, 128],
+		},
+	},
+	"shinobi": {
+		"folder": "res://assets/enemies/enemy_shinobi",
+		"frames": {
+			"attack_1": [5, 128], "attack_2": [4, 96], "attack_3": [4, 128],
+			"dead": [4, 128], "hurt": [2, 128], "idle": [6, 128],
+			"jump": [12, 128], "run": [8, 128], "shield": [4, 128], "walk": [8, 128],
+		},
+	},
+}
 
 # Data serangan. Nama key SAMA PERSIS dengan nama animasi di SpriteFrames
 const ATTACKS := {
@@ -50,6 +74,7 @@ var input_state := {
 }
 
 func _ready() -> void:
+	set_character(character_id)
 	shape_node.shape = shape_node.shape.duplicate()
 	hitbox_shape.shape = hitbox_shape.shape.duplicate()
 	health = max_health
@@ -60,6 +85,32 @@ func _ready() -> void:
 
 	if body: body.visible = false
 	if nose: nose.visible = false
+
+
+# Membangun SpriteFrames dari folder karakter (dipakai untuk ganti samurai/shinobi)
+func set_character(char_id: String) -> void:
+	if not CHARACTERS.has(char_id):
+		char_id = "samurai"
+	character_id = char_id
+	var data: Dictionary = CHARACTERS[char_id]
+	var frame_data: Dictionary = data["frames"]
+	var frames := SpriteFrames.new()
+	frames.remove_animation("default")
+	for anim_name in frame_data:
+		frames.add_animation(anim_name)
+		var spec: Array = frame_data[anim_name]
+		var count: int = spec[0]
+		var frame_w: int = spec[1]
+		var tex: Texture2D = load(data["folder"] + "/" + anim_name + ".png")
+		for i in count:
+			var at := AtlasTexture.new()
+			at.atlas = tex
+			at.region = Rect2(i * frame_w, 0, frame_w, 128)
+			frames.add_frame(anim_name, at)
+		frames.set_animation_speed(anim_name, 6.0)
+		frames.set_animation_loop(anim_name, true)
+	sprite.sprite_frames = frames
+	sprite.play("idle")
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -90,6 +141,7 @@ func _physics_process(delta: float) -> void:
 
 		if input_state["jump"] and is_on_floor():
 			velocity.y = jump_velocity
+			Audio.play_sfx("jump", -8.0)
 			input_state["jump"] = false
 		elif is_on_floor():
 			for attack_name in ATTACKS:
@@ -167,6 +219,7 @@ func _attack(attack_name: String) -> void:
 	current_damage = atk["damage"]
 	already_hit.clear()
 	_setup_hitbox(atk)
+	Audio.play_sfx("swing", -4.0)
 
 	# Mainkan animasi serangan (nama key = nama animasi)
 	_play_safe(attack_name)
@@ -204,14 +257,16 @@ func take_damage(amount: int) -> void:
 
 	# LOGIKA BLOCK: Jika sedang menangkis, damage diabaikan
 	if is_crouching or input_state["block"]:
-		print("Serangan ditangkis!")
-		# Opsional: Kamu bisa tambahkan efek suara 'ting!' atau partikel percikan di sini nanti
+		Audio.play_sfx("block", -2.0)
+		did_block.emit()
 		return # Keluar dari fungsi, health TIDAK berkurang dan tidak masuk status 'hurt'
 
 	# Jika tidak block, baru terkena damage normal
 	health = maxi(health - amount, 0)
 	health_changed.emit(health, max_health)
-	
+	Audio.play_sfx("hit", -2.0)
+	got_hit.emit(amount)
+
 	is_hurt = true
 	_play_safe("hurt")
 	await get_tree().create_timer(0.2).timeout

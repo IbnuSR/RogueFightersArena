@@ -480,6 +480,7 @@ bg_color = Color(0.18039216, 0.8, 0.2509804, 1)
 bg_color = Color(0.90588236, 0.29803923, 0.23529412, 1)
 
 [node name="ArenaTest" type="Node2D" unique_id=1586392843]
+process_mode = 3
 script = ExtResource("1_5cgeu")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1649730482]
@@ -590,3 +591,121 @@ vertical_alignment = 1
 
 [editable path="Fighter"]
 [editable path="Fighter2"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="TimerLabel" type="Label" parent="HUD"]
+offset_left = 600.0
+offset_top = 64.0
+offset_right = 680.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "60"
+horizontal_alignment = 1
+
+[node name="P1Name" type="Label" parent="HUD"]
+offset_left = 40.0
+offset_top = 4.0
+offset_right = 540.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 18
+text = "P1"
+
+[node name="P2Name" type="Label" parent="HUD"]
+offset_left = 740.0
+offset_top = 4.0
+offset_right = 1240.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 18
+text = "P2"
+horizontal_alignment = 2
+
+[node name="OverlayLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="KOLabel" type="Label" parent="OverlayLayer"]
+visible = false
+anchor_right = 1.0
+offset_top = 240.0
+offset_bottom = 460.0
+theme_override_colors/font_color = Color(1, 0.2, 0.15, 1)
+theme_override_font_sizes/font_size = 150
+text = "K.O.!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseMenu" type="Control" parent="OverlayLayer"]
+visible = false
+process_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Dim" type="ColorRect" parent="OverlayLayer/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="Center" type="CenterContainer" parent="OverlayLayer/PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="OverlayLayer/PauseMenu/Center"]
+
+[node name="VBox" type="VBoxContainer" parent="OverlayLayer/PauseMenu/Center/Panel"]
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+theme_override_font_sizes/font_size = 48
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="BtnResume" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+custom_minimum_size = Vector2(320, 52)
+theme_override_font_sizes/font_size = 22
+text = "LANJUTKAN (ESC)"
+
+[node name="BtnRestart" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+custom_minimum_size = Vector2(320, 52)
+theme_override_font_sizes/font_size = 22
+text = "ULANGI PERTANDINGAN"
+
+[node name="BtnMenu" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+custom_minimum_size = Vector2(320, 52)
+theme_override_font_sizes/font_size = 22
+text = "MENU UTAMA"
+
+[node name="GameOverMenu" type="Control" parent="OverlayLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Dim" type="ColorRect" parent="OverlayLayer/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.7)
+
+[node name="Center" type="CenterContainer" parent="OverlayLayer/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="PanelContainer" parent="OverlayLayer/GameOverMenu/Center"]
+
+[node name="VBox" type="VBoxContainer" parent="OverlayLayer/GameOverMenu/Center/Panel"]
+theme_override_constants/separation = 12
+
+[node name="WinnerLabel" type="Label" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+theme_override_font_sizes/font_size = 64
+text = "PEMAIN 1 MENANG!"
+horizontal_alignment = 1
+
+[node name="BtnRematch" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+custom_minimum_size = Vector2(320, 52)
+theme_override_font_sizes/font_size = 22
+text = "MAIN LAGI (R)"
+
+[node name="BtnGoMenu" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+custom_minimum_size = Vector2(320, 52)
+theme_override_font_sizes/font_size = 22
+text = "MENU UTAMA (M)"

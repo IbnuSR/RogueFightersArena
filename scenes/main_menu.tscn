@@ -1,0 +1,137 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/terrace.png" id="2"]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="BG" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.3334, 0.3334)
+texture = ExtResource("2")
+
+[node name="Dim" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.62)
+
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="Center"]
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Title" type="Label" parent="Center/VBox"]
+theme_override_colors/font_color = Color(1, 0.84, 0.2, 1)
+theme_override_font_sizes/font_size = 76
+text = "ROGUE FIGHTERS"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Center/VBox"]
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "— A R E N A —"
+horizontal_alignment = 1
+
+[node name="ModeRow" type="HBoxContainer" parent="Center/VBox"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ModeLabel" type="Label" parent="Center/VBox/ModeRow"]
+theme_override_font_sizes/font_size = 20
+text = "MODE"
+
+[node name="Btn1P" type="Button" parent="Center/VBox/ModeRow"]
+custom_minimum_size = Vector2(170, 44)
+theme_override_font_sizes/font_size = 20
+text = "1 PLAYER"
+
+[node name="Btn2P" type="Button" parent="Center/VBox/ModeRow"]
+custom_minimum_size = Vector2(170, 44)
+theme_override_font_sizes/font_size = 20
+text = "2 PLAYERS"
+
+[node name="DiffRow" type="HBoxContainer" parent="Center/VBox"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="DiffLabel" type="Label" parent="Center/VBox/DiffRow"]
+theme_override_font_sizes/font_size = 20
+text = "KESULITAN AI"
+
+[node name="BtnEasy" type="Button" parent="Center/VBox/DiffRow"]
+custom_minimum_size = Vector2(120, 44)
+theme_override_font_sizes/font_size = 20
+text = "MUDAH"
+
+[node name="BtnNormal" type="Button" parent="Center/VBox/DiffRow"]
+custom_minimum_size = Vector2(120, 44)
+theme_override_font_sizes/font_size = 20
+text = "NORMAL"
+
+[node name="BtnHard" type="Button" parent="Center/VBox/DiffRow"]
+custom_minimum_size = Vector2(120, 44)
+theme_override_font_sizes/font_size = 20
+text = "SUSAH"
+
+[node name="P1Row" type="HBoxContainer" parent="Center/VBox"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="P1Label" type="Label" parent="Center/VBox/P1Row"]
+theme_override_font_sizes/font_size = 20
+text = "KARAKTER P1"
+
+[node name="BtnP1Sam" type="Button" parent="Center/VBox/P1Row"]
+custom_minimum_size = Vector2(140, 44)
+theme_override_font_sizes/font_size = 20
+text = "SAMURAI"
+
+[node name="BtnP1Shi" type="Button" parent="Center/VBox/P1Row"]
+custom_minimum_size = Vector2(140, 44)
+theme_override_font_sizes/font_size = 20
+text = "SHINOBI"
+
+[node name="P2Row" type="HBoxContainer" parent="Center/VBox"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="P2Label" type="Label" parent="Center/VBox/P2Row"]
+theme_override_font_sizes/font_size = 20
+text = "KARAKTER P2"
+
+[node name="BtnP2Sam" type="Button" parent="Center/VBox/P2Row"]
+custom_minimum_size = Vector2(140, 44)
+theme_override_font_sizes/font_size = 20
+text = "SAMURAI"
+
+[node name="BtnP2Shi" type="Button" parent="Center/VBox/P2Row"]
+custom_minimum_size = Vector2(140, 44)
+theme_override_font_sizes/font_size = 20
+text = "SHINOBI"
+
+[node name="BtnStart" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(320, 56)
+theme_override_font_sizes/font_size = 26
+text = "MULAI BERTARUNG"
+
+[node name="BtnHow" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(320, 44)
+theme_override_font_sizes/font_size = 20
+text = "CARA MAIN"
+
+[node name="BtnQuit" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(320, 44)
+theme_override_font_sizes/font_size = 20
+text = "KELUAR"
+
+[node name="Hint" type="Label" parent="Center/VBox"]
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 15
+text = "P1: A/D gerak, Spasi lompat, S block, J/K/L serang   |   P2: panah + , . / serang"
+horizontal_alignment = 1
