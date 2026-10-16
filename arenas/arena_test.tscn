@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhbmwvap8hr5f"]
 
 [ext_resource type="Script" uid="uid://c74bq0vu35nm5" path="res://arenas/arena_test.gd" id="1_5cgeu"]
-[ext_resource type="PackedScene" uid="uid://caueui2bcpaxy" path="res://fighters/fighter.tscn" id="1_qpp04"]
+[ext_resource type="PackedScene" uid="uid://caueui2bcpaxy" path="res://prefab_character/prefab_example.tscn" id="1_qpp04"]
 [ext_resource type="Script" uid="uid://c366xrb8mlqhk" path="res://HumanController.gd" id="3_t8rd8"]
 [ext_resource type="Texture2D" uid="uid://bsccf6s6dstxc" path="res://assets/enemies/enemy_shinobi/attack_1.png" id="4_4s8xb"]
 [ext_resource type="Script" uid="uid://b7xjaknquywtw" path="res://ai_controller.gd" id="4_8v2ck"]
@@ -576,6 +576,33 @@ offset_top = 66.0
 offset_right = 805.0
 offset_bottom = 96.0
 
+[node name="TimerLabel" type="Label" parent="HUD" unique_id=1813874037]
+offset_left = 600.0
+offset_top = 64.0
+offset_right = 680.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "60"
+horizontal_alignment = 1
+
+[node name="P1Name" type="Label" parent="HUD" unique_id=1980383672]
+offset_left = 40.0
+offset_top = 4.0
+offset_right = 540.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 18
+text = "P1"
+
+[node name="P2Name" type="Label" parent="HUD" unique_id=918649628]
+offset_left = 740.0
+offset_top = 4.0
+offset_right = 1240.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 18
+text = "P2"
+horizontal_alignment = 2
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=394548440]
 
 [node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=1852352887]
@@ -589,44 +616,15 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[editable path="Fighter"]
-[editable path="Fighter2"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1691275742]
 position = Vector2(640, 360)
 
-[node name="TimerLabel" type="Label" parent="HUD"]
-offset_left = 600.0
-offset_top = 64.0
-offset_right = 680.0
-offset_bottom = 112.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 40
-text = "60"
-horizontal_alignment = 1
-
-[node name="P1Name" type="Label" parent="HUD"]
-offset_left = 40.0
-offset_top = 4.0
-offset_right = 540.0
-offset_bottom = 26.0
-theme_override_font_sizes/font_size = 18
-text = "P1"
-
-[node name="P2Name" type="Label" parent="HUD"]
-offset_left = 740.0
-offset_top = 4.0
-offset_right = 1240.0
-offset_bottom = 26.0
-theme_override_font_sizes/font_size = 18
-text = "P2"
-horizontal_alignment = 2
-
-[node name="OverlayLayer" type="CanvasLayer" parent="."]
+[node name="OverlayLayer" type="CanvasLayer" parent="." unique_id=535891254]
 layer = 10
 
-[node name="KOLabel" type="Label" parent="OverlayLayer"]
+[node name="KOLabel" type="Label" parent="OverlayLayer" unique_id=1968302121]
 visible = false
+anchors_preset = 10
 anchor_right = 1.0
 offset_top = 240.0
 offset_bottom = 460.0
@@ -636,76 +634,102 @@ text = "K.O.!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseMenu" type="Control" parent="OverlayLayer"]
-visible = false
+[node name="PauseMenu" type="Control" parent="OverlayLayer" unique_id=1228835703]
 process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="OverlayLayer/PauseMenu"]
+[node name="Dim" type="ColorRect" parent="OverlayLayer/PauseMenu" unique_id=1259243825]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.65)
 
-[node name="Center" type="CenterContainer" parent="OverlayLayer/PauseMenu"]
+[node name="Center" type="CenterContainer" parent="OverlayLayer/PauseMenu" unique_id=1078211144]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Panel" type="PanelContainer" parent="OverlayLayer/PauseMenu/Center"]
+[node name="Panel" type="PanelContainer" parent="OverlayLayer/PauseMenu/Center" unique_id=1747507080]
+layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="OverlayLayer/PauseMenu/Center/Panel"]
+[node name="VBox" type="VBoxContainer" parent="OverlayLayer/PauseMenu/Center/Panel" unique_id=1247234275]
+layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+[node name="Title" type="Label" parent="OverlayLayer/PauseMenu/Center/Panel/VBox" unique_id=326205961]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "PAUSE"
 horizontal_alignment = 1
 
-[node name="BtnResume" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+[node name="BtnResume" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox" unique_id=911745069]
 custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "LANJUTKAN (ESC)"
 
-[node name="BtnRestart" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+[node name="BtnRestart" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox" unique_id=1639620402]
 custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "ULANGI PERTANDINGAN"
 
-[node name="BtnMenu" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox"]
+[node name="BtnMenu" type="Button" parent="OverlayLayer/PauseMenu/Center/Panel/VBox" unique_id=1702014308]
 custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "MENU UTAMA"
 
-[node name="GameOverMenu" type="Control" parent="OverlayLayer"]
+[node name="GameOverMenu" type="Control" parent="OverlayLayer" unique_id=113908481]
 visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Dim" type="ColorRect" parent="OverlayLayer/GameOverMenu"]
+[node name="Dim" type="ColorRect" parent="OverlayLayer/GameOverMenu" unique_id=1985906522]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.7)
 
-[node name="Center" type="CenterContainer" parent="OverlayLayer/GameOverMenu"]
+[node name="Center" type="CenterContainer" parent="OverlayLayer/GameOverMenu" unique_id=1987378241]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Panel" type="PanelContainer" parent="OverlayLayer/GameOverMenu/Center"]
+[node name="Panel" type="PanelContainer" parent="OverlayLayer/GameOverMenu/Center" unique_id=1213506189]
+layout_mode = 2
 
-[node name="VBox" type="VBoxContainer" parent="OverlayLayer/GameOverMenu/Center/Panel"]
+[node name="VBox" type="VBoxContainer" parent="OverlayLayer/GameOverMenu/Center/Panel" unique_id=430882163]
+layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="WinnerLabel" type="Label" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+[node name="WinnerLabel" type="Label" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox" unique_id=1733002892]
+layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "PEMAIN 1 MENANG!"
 horizontal_alignment = 1
 
-[node name="BtnRematch" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+[node name="BtnRematch" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox" unique_id=1993900460]
 custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "MAIN LAGI (R)"
 
-[node name="BtnGoMenu" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox"]
+[node name="BtnGoMenu" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox" unique_id=195075221]
 custom_minimum_size = Vector2(320, 52)
+layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "MENU UTAMA (M)"
+
+[editable path="Fighter"]
+[editable path="Fighter2"]
