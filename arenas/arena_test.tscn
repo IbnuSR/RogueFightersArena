@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bhbmwvap8hr5f"]
 
 [ext_resource type="Script" uid="uid://c74bq0vu35nm5" path="res://arenas/arena_test.gd" id="1_5cgeu"]
-[ext_resource type="PackedScene" uid="uid://caueui2bcpaxy" path="res://prefab_character/prefab_example.tscn" id="1_qpp04"]
+[ext_resource type="PackedScene" uid="uid://caueui2bcpaxy" path="res://fighters/fighter.tscn" id="1_qpp04"]
 [ext_resource type="Script" uid="uid://c366xrb8mlqhk" path="res://HumanController.gd" id="3_t8rd8"]
 [ext_resource type="Texture2D" uid="uid://bsccf6s6dstxc" path="res://assets/enemies/enemy_shinobi/attack_1.png" id="4_4s8xb"]
 [ext_resource type="Script" uid="uid://b7xjaknquywtw" path="res://ai_controller.gd" id="4_8v2ck"]
