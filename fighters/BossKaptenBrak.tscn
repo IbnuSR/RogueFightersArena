@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bylthhkfcpvb0" path="res://assets/fighters/fighter_samurai/attack_3.png" id="4_ma8iy"]
 [ext_resource type="Texture2D" uid="uid://dxecddcix6s5d" path="res://assets/fighters/fighter_samurai/dead.png" id="5_tity0"]
 [ext_resource type="Texture2D" uid="uid://dbaiif6llvag8" path="res://assets/fighters/fighter_samurai/hurt.png" id="6_pvenf"]
-[ext_resource type="Texture2D" uid="uid://uwk48n32jo4" path="res://assets/fighters/fighter_samurai/idle.png" id="7_2ugej"]
+[ext_resource type="Texture2D" uid="uid://cdkm74icnrblc" path="res://assets/bosses/boss_kapten_brak/kapten b idle.png" id="7_je56i"]
 [ext_resource type="Texture2D" uid="uid://luucfcsj7c6h" path="res://assets/fighters/fighter_samurai/jump.png" id="8_ark77"]
 [ext_resource type="Texture2D" uid="uid://d1vmvenfmmqdg" path="res://assets/fighters/fighter_samurai/run.png" id="9_dlnlr"]
 [ext_resource type="Texture2D" uid="uid://rwbt305eclcl" path="res://assets/fighters/fighter_samurai/shield.png" id="10_v252v"]
@@ -98,29 +98,25 @@ region = Rect2(0, 0, 128, 128)
 atlas = ExtResource("6_pvenf")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ii6f4"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqkap"]
+atlas = ExtResource("7_je56i")
+region = Rect2(0, 0, 153, 162)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ahjby"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(128, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8njrb"]
+atlas = ExtResource("7_je56i")
+region = Rect2(153, 0, 153, 162)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6ch37"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(256, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma8iy"]
+atlas = ExtResource("7_je56i")
+region = Rect2(306, 0, 153, 162)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vut3f"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(384, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tity0"]
+atlas = ExtResource("7_je56i")
+region = Rect2(459, 0, 153, 162)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3jvw"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(512, 0, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s6upa"]
-atlas = ExtResource("7_2ugej")
-region = Rect2(640, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvenf"]
+atlas = ExtResource("7_je56i")
+region = Rect2(612, 0, 153, 162)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5l55q"]
 atlas = ExtResource("8_ark77")
@@ -331,22 +327,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ii6f4")
+"texture": SubResource("AtlasTexture_uqkap")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ahjby")
+"texture": SubResource("AtlasTexture_8njrb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6ch37")
+"texture": SubResource("AtlasTexture_ma8iy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vut3f")
+"texture": SubResource("AtlasTexture_tity0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t3jvw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s6upa")
+"texture": SubResource("AtlasTexture_pvenf")
 }],
 "loop": 1,
 "name": &"idle",
@@ -502,4 +495,4 @@ color = Color(1, 0.16078432, 0, 0.49803922)
 position = Vector2(0, -202)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_o2h0f")
-animation = &"attack_2"
+animation = &"idle"

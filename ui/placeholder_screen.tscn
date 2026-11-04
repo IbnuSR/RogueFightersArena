@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c16kfmhdfin46"]
+
+[node name="PlaceholderScreen" type="Control" unique_id=2086705418]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="." unique_id=727038767]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.078431375, 0.09411765, 0.16470589, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=800823100]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Center" unique_id=297693514]
+layout_mode = 2
+theme_override_constants/separation = 28

@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://be5wpd4wbjhm2"]
+
+[ext_resource type="Script" uid="uid://brcchjk5o263m" path="res://ui/main_menu.gd" id="1_t7e0r"]
+
+[node name="MainMenu" type="Control" unique_id=323177124]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t7e0r")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1955727479]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.078431375, 0.09411765, 0.16470589, 1)
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1730078068]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Center" unique_id=387072407]
+layout_mode = 2
+theme_override_constants/separation = 28
+
+[node name="Title" type="Label" parent="Center/Content" unique_id=260675460]
+layout_mode = 2
+theme_type_variation = &"GraphFrameTitleLabel"
+text = "ROGUE FIGHTERS ARENA"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Center/Content" unique_id=1142738966]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ContinueButton" type="Button" parent="Center/Content/Buttons" unique_id=352665509]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 84)
+layout_mode = 2
+text = "Lanjutkan"
+
+[node name="StoryModeButton" type="Button" parent="Center/Content/Buttons" unique_id=1165757549]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 84)
+layout_mode = 2
+text = "Mode Cerita"
+
+[node name="FreeBattleButton" type="Button" parent="Center/Content/Buttons" unique_id=1886677412]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 84)
+layout_mode = 2
+text = "Bebas Bertarung
+"
+
+[node name="SettingsButton" type="Button" parent="Center/Content/Buttons" unique_id=1752885768]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 84)
+layout_mode = 2
+text = "Pengaturan"
+
+[node name="QuitButton" type="Button" parent="Center/Content/Buttons" unique_id=1415092784]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 84)
+layout_mode = 2
+text = "Keluar"
