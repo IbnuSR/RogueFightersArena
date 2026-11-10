@@ -37,13 +37,14 @@ const CHARACTERS := {
 		"folder": "res://assets/fighters/fighter_arga",
 		"frame_h": 256,
 		"sprite_scale": 0.949,
-		"feet_y": 256,
+		"feet_y": 237,
 		"stats": {"hp": 100, "dmg": 1.0, "spd": 1.0},
-		"anim_fix": {"walk": [0.949, -112.5], "run": [1.025, -107.3], "jump": [0.949, -116.8], "attack_1": [0.875, -105.4], "attack_2": [0.949, -104.9], "attack_3": [0.949, -105.8], "shield": [0.712, -100.4], "hurt": [0.827, -102.6], "dead": [1.281, -102.2]},
+		"anim_fix": {"walk": [0.949, -120.1], "run": [1.02, -106.4], "jump": [1.061, -126.7], "attack_1": [0.883, -123.0], "attack_2": [0.949, -131.5], "attack_3": [0.949, -131.5], "shield": [0.712, -100.4], "hurt": [0.949, -131.5], "dead": [1.281, -174.0]},
+		"anim_speeds": {"walk": 12.0, "attack_3": 13.0, "jump": 7.0},
 		"frames": {
-			"attack_1": [11, 140], "attack_2": [11, 140], "attack_3": [11, 140],
-			"dead": [4, 139], "hurt": [4, 135], "idle": [6, 134],
-			"jump": [7, 216], "run": [6, 140], "shield": [4, 165], "walk": [12, 136],
+			"attack_1": [5, 149], "attack_2": [5, 156], "attack_3": [8, 302],
+			"dead": [8, 185], "hurt": [4, 146], "idle": [6, 125],
+			"jump": [5, 189], "run": [6, 140], "shield": [4, 165], "walk": [10, 130],
 		},
 	},
 	"marco": {
@@ -298,6 +299,10 @@ func set_character(char_id: String) -> void:
 	char_data = data
 	var frame_data: Dictionary = data["frames"]
 	var frame_h: int = data.get("frame_h", 128)
+	# Override kecepatan animasi per karakter (mis. Arga: walk/attack_3/jump
+	# disesuaikan dengan jumlah frame & durasi geraknya); kalau tidak ada,
+	# pakai ANIM_SPEEDS global.
+	var speed_over: Dictionary = data.get("anim_speeds", {})
 	var frames := SpriteFrames.new()
 	frames.remove_animation("default")
 	for anim_name in frame_data:
@@ -311,7 +316,8 @@ func set_character(char_id: String) -> void:
 			at.atlas = tex
 			at.region = Rect2(i * frame_w, 0, frame_w, frame_h)
 			frames.add_frame(anim_name, at)
-		frames.set_animation_speed(anim_name, ANIM_SPEEDS.get(anim_name, 8.0))
+		frames.set_animation_speed(anim_name,
+			float(speed_over.get(anim_name, ANIM_SPEEDS.get(anim_name, 8.0))))
 		frames.set_animation_loop(anim_name, true)
 	sprite.sprite_frames = frames
 	var sc: float = float(data.get("sprite_scale", 3.0))
@@ -392,10 +398,16 @@ func _update_animation():
 	elif not is_on_floor():
 		_play_safe("jump")
 	elif abs(velocity.x) > 10.0:
-		if _has_anim("run"):
-			_play_safe("run")
-		elif _has_anim("walk"):
+		# FIX (2026-11-10, versi GitHub a12c7e4): game ini tidak punya
+		# mekanik lari — semua gerak horizontal adalah jalan kaki
+		# (walk_speed), jadi pakai animasi "walk" agar sprite sesuai
+		# dengan gerakannya. Sebelumnya "run" selalu menang, jadi
+		# animasi "walk" tidak pernah main. ("run" tetap tersedia
+		# kalau mekanik lari ditambahkan di kemudian hari.)
+		if _has_anim("walk"):
 			_play_safe("walk")
+		elif _has_anim("run"):
+			_play_safe("run")
 		else:
 			_play_safe("idle")
 	else:
