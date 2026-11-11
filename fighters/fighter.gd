@@ -35,11 +35,15 @@ const CHARACTERS := {
 	},
 	"arga": {
 		"folder": "res://assets/fighters/fighter_arga",
+		# Skala 1.273 (10 Nov 2026): tinggi badan median idle Arga 188,5 px
+		# x 1.273 = 240 px, sama dengan Samurai (247) & Shinobi (237).
+		# Skala lama 0.949 warisan art lama -> Arga cuma 179 px, kekecilan.
+		# anim_fix dihitung ulang dari skala baru (rumus process_arga_v2.py).
 		"frame_h": 256,
-		"sprite_scale": 0.949,
+		"sprite_scale": 1.273,
 		"feet_y": 237,
 		"stats": {"hp": 100, "dmg": 1.0, "spd": 1.0},
-		"anim_fix": {"walk": [0.949, -120.1], "run": [1.02, -106.4], "jump": [1.061, -126.7], "attack_1": [0.883, -123.0], "attack_2": [0.949, -131.5], "attack_3": [0.949, -131.5], "shield": [0.712, -100.4], "hurt": [0.949, -131.5], "dead": [1.281, -174.0]},
+		"anim_fix": {"walk": [1.273, -157.7], "run": [1.368, -139.3], "jump": [1.423, -166.6], "attack_1": [1.184, -161.6], "attack_2": [1.273, -172.9], "attack_3": [1.273, -172.9], "shield": [0.955, -131.3], "hurt": [1.273, -172.9], "dead": [1.719, -230.0]},
 		"anim_speeds": {"walk": 12.0, "attack_3": 13.0, "jump": 7.0},
 		"frames": {
 			"attack_1": [5, 149], "attack_2": [5, 156], "attack_3": [8, 302],
@@ -318,7 +322,13 @@ func set_character(char_id: String) -> void:
 			frames.add_frame(anim_name, at)
 		frames.set_animation_speed(anim_name,
 			float(speed_over.get(anim_name, ANIM_SPEEDS.get(anim_name, 8.0))))
-		frames.set_animation_loop(anim_name, true)
+		# FIX (2026-11-10): animasi "dead" JANGAN looping — kalau looping,
+		# karakter yang sudah pingsan akan bangun lagi (frame awal = berdiri)
+		# lalu tidur lagi, berulang-ulang. Dengan loop=false, animasi mati
+		# berhenti di frame terakhir (terbaring) dan diam di sana sampai
+		# ronde berikutnya (reset_for_next_round mainkan "idle" lagi).
+		# Animasi lain tetap looping seperti biasa.
+		frames.set_animation_loop(anim_name, anim_name != "dead")
 	sprite.sprite_frames = frames
 	var sc: float = float(data.get("sprite_scale", 3.0))
 	base_scale = sc
