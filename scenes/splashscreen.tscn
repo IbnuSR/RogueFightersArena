@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://w6kuehncjkpj"]
+
+[ext_resource type="Texture2D" uid="uid://dw0jk55yo6wlb" path="res://assets/image/splash.png" id="1_1u6fw"]
+[ext_resource type="Script" uid="uid://cac7ydtxwhs6v" path="res://scripts/splashscreen.gd" id="1_jnvd6"]
+
+[sub_resource type="Animation" id="Animation_1u6fw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jnvd6"]
+resource_name = "SplashIntro"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 2.4, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1tst7"]
+_data = {
+&"RESET": SubResource("Animation_1u6fw"),
+&"SplashIntro": SubResource("Animation_jnvd6")
+}
+
+[node name="SplashScreen" type="Control" unique_id=139689272]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnvd6")
+
+[node name="Background" type="TextureRect" parent="." unique_id=462250538]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1u6fw")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=229421147]
+libraries/ = SubResource("AnimationLibrary_1tst7")
