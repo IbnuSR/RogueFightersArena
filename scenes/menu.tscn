@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bhjiuv1vy64i8"]
 
+[ext_resource type="Script" path="res://scripts/button.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://buy0d1pvpx6sa" path="res://assets/image/main_menu.png" id="1_yqeox"]
 [ext_resource type="Texture2D" uid="uid://bgdfrn2ga13gt" path="res://assets/image/storymode.png" id="2_con2f"]
 [ext_resource type="Texture2D" uid="uid://bhjrgshynafaj" path="res://assets/image/freebattle.png" id="3_mhnvy"]
@@ -14,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_script")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1522073594]
 layout_mode = 1

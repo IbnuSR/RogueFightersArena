@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_rn23u"]
+
+[resource]
+script = ExtResource("1_rn23u")
+id = "guru_sunyi"
+display_name = "Guru Sunyi"
+country = "Karang Hitam"
+style = "Counter-attack"
+bio = "Guru Dojo Bayangan yang hampir tidak pernah menyerang duluan; ia menangkis setiap serangan lalu membalasnya dengan satu pukulan yang mematikan."
+hp = 150
+dmg = 1.1
+spd = 0.95
+trait_id = "boss_counter"
+trait_desc = "Boss: pola counter — lebih sering block dan membalas setelah block dengan attack_2."
+folder = "res://assets/bosses/boss_guru_sunyi"

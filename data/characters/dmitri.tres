@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_ibyp1"]
+
+[resource]
+script = ExtResource("1_ibyp1")
+id = "dmitri"
+display_name = "Dmitri Volkov"
+country = "Rusia"
+style = "Sambo"
+bio = "Raksasa sambo dari Rusia dengan tubuh setebal tembok; sekali tangannya meraih lawan yang sedang menangkis, bantingannya hampir mustahil dihentikan."
+hp = 140
+dmg = 1.2
+spd = 0.85
+trait_id = "dmitri_throw"
+trait_desc = "Bantingan kuat: damage throw 14 (bukan 8) + knockback lebih besar."
+folder = "res://assets/fighters/fighter_dmitri"

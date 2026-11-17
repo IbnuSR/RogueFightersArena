@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_nkr38"]
+
+[resource]
+script = ExtResource("1_nkr38")
+id = "sora"
+display_name = "Sora Aizawa"
+country = "Jepang"
+style = "Judo dan Karate"
+bio = "Ahli judo dan karate dari Jepang yang membaca serangan lawan; tangkisan yang tepat waktu memberinya tenaga untuk membalas dengan serangan berikutnya yang jauh lebih keras."
+hp = 95
+spd = 1.05
+trait_id = "sora_counter"
+trait_desc = "Counter: menangkis tepat saat serangan masuk (0.15 dtk pertama block) membuat serangan berikutnya damage +50%."
+folder = "res://assets/fighters/fighter_sora"

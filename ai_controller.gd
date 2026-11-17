@@ -7,6 +7,9 @@ extends Node
 @export var jarak_serang: float = 110.0 # jarak ideal untuk memukul
 @export var peluang_tangkis: float = 0.3 # 0.0 - 1.0
 
+var boss_pattern: String = ""
+var phase2: bool = false
+
 var player: Node2D
 var state: String = "footwork"
 var state_timer: float = 0.0

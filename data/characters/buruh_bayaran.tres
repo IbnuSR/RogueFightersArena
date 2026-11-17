@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_sqqfj"]
+
+[resource]
+script = ExtResource("1_sqqfj")
+id = "buruh_bayaran"
+display_name = "Buruh Bayaran"
+country = "Karang Hitam"
+style = "Pukulan berat"
+bio = "Buruh pelabuhan Dermaga yang dibayar Sindikat Voss untuk menjaga wilayah; tubuh besar dan pukulan berat, tapi lambat."
+hp = 120
+dmg = 1.1
+spd = 0.8
+trait_id = "generic"
+trait_desc = "Generik: berat dan lambat, tanpa trait khusus."
+folder = "res://assets/fighters/fighter_buruh"

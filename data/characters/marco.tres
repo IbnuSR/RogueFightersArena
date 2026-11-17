@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_ct1yy"]
+
+[resource]
+script = ExtResource("1_ct1yy")
+id = "marco"
+display_name = "Marco Valdez"
+country = "Brasil"
+style = "Capoeira"
+bio = "Capoeirista jalanan dari Brasil yang bertarung sambil menari; tendangan rendahnya menjangkau lebih jauh dari yang diduga lawan, dan dari posisi jongkok tendangannya makin menyakitkan."
+hp = 90
+dmg = 0.9
+spd = 1.15
+trait_id = "marco_lowkick"
+trait_desc = "Tendangan rendah: attack_1 & attack_2 reach +10; attack_1 saat jongkok damage +2."
+folder = "res://assets/fighters/fighter_marco"

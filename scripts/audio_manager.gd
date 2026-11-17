@@ -5,6 +5,19 @@ extends Node
 var _players: Array[AudioStreamPlayer] = []
 var _music_player: AudioStreamPlayer
 var _streams: Dictionary = {}
+# Level volume 0.0..1.0 (diatur dari Pengaturan, disimpan ProgressManager).
+var music_level: float = 0.8
+var sfx_level: float = 0.8
+
+
+func set_music_level(v: float) -> void:
+	music_level = clampf(v, 0.0, 1.0)
+	if _music_player != null:
+		_music_player.volume_db = -10.0 + linear_to_db(maxf(music_level, 0.001))
+
+
+func set_sfx_level(v: float) -> void:
+	sfx_level = clampf(v, 0.0, 1.0)
 
 const SFX_NAMES := [
 	"swing", "hit", "block", "jump", "ko",
@@ -43,15 +56,16 @@ func _load_stream(stream_name: String, loop: bool) -> void:
 func play_sfx(stream_name: String, volume_db: float = 0.0) -> void:
 	if not _streams.has(stream_name):
 		return
+	var vol: float = volume_db + linear_to_db(maxf(sfx_level, 0.001))
 	for p in _players:
 		if not p.playing:
 			p.stream = _streams[stream_name]
-			p.volume_db = volume_db
+			p.volume_db = vol
 			p.play()
 			return
 	# Semua player sibuk: pakai ulang yang pertama
 	_players[0].stream = _streams[stream_name]
-	_players[0].volume_db = volume_db
+	_players[0].volume_db = vol
 	_players[0].play()
 
 
@@ -61,7 +75,7 @@ func play_music(stream_name: String, volume_db: float = -10.0) -> void:
 	if _music_player.stream == _streams[stream_name] and _music_player.playing:
 		return
 	_music_player.stream = _streams[stream_name]
-	_music_player.volume_db = volume_db
+	_music_player.volume_db = volume_db + linear_to_db(maxf(music_level, 0.001))
 	_music_player.play()
 
 

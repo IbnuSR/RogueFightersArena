@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_0ly08"]
+
+[resource]
+script = ExtResource("1_0ly08")
+id = "arga"
+display_name = "Arga Wiratama"
+country = "Indonesia"
+style = "Pencak Silat"
+bio = "Pesilat muda dari Indonesia yang menguasai dua kuda-kuda silat: kuda-kuda menyerang yang keras dan kuda-kuda bertahan yang kokoh; setiap tangkisan yang berhasil membuatnya berganti kuda-kuda di tengah duel."
+trait_id = "arga_stance"
+trait_desc = "Dua kuda-kuda: tiap berhasil menangkis, stance berganti menyerang <-> bertahan. Menyerang: damage +20% & reach +15. Bertahan: damage -10%, blockstun -50%, chip 0."
+folder = "res://assets/fighters/fighter_arga"

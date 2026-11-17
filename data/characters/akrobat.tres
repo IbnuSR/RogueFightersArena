@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_4vgpm"]
+
+[resource]
+script = ExtResource("1_4vgpm")
+id = "akrobat"
+display_name = "Akrobat"
+country = "Karang Hitam"
+style = "Akrobatik"
+bio = "Akrobat jalanan Lorong Neon yang lincah dan sulit ditebak arah serangannya; tubuhnya seolah tidak pernah diam."
+hp = 85
+dmg = 0.9
+spd = 1.25
+trait_id = "generic"
+trait_desc = "Generik: sangat lincah, tanpa trait khusus."
+folder = "res://assets/fighters/fighter_akrobat"

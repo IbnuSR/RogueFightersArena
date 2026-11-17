@@ -19,12 +19,16 @@ const CHAR_LIST := [
 	["han", "HAN"], ["valeria", "VALERIA"], ["anika", "ANIKA"],
 ]
 
+@onready var p1_row: HBoxContainer = $Center/VBox/P1Row
 @onready var p2_row: HBoxContainer = $Center/VBox/P2Row
 @onready var p1_grid: GridContainer = $Center/VBox/P1Row/P1Grid
 @onready var p2_grid: GridContainer = $Center/VBox/P2Row/P2Grid
 @onready var btn_start: Button = $Center/VBox/BtnStart
+@onready var btn_story: Button = $Center/VBox/BtnStory
+@onready var btn_settings: Button = $Center/VBox/BtnSettings
 @onready var btn_how: Button = $Center/VBox/BtnHow
 @onready var btn_quit: Button = $Center/VBox/BtnQuit
+@onready var hint_label: Label = $Center/VBox/Hint
 var p1_buttons: Dictionary = {}
 var p2_buttons: Dictionary = {}
 
@@ -41,9 +45,19 @@ func _ready() -> void:
 	btn_normal.pressed.connect(_on_difficulty.bind(1))
 	btn_hard.pressed.connect(_on_difficulty.bind(2))
 	_build_char_buttons()
+	# Pilih karakter & lawan sekarang lewat layar Pilih Karakter (ada
+	# potret, bio & statistik) — grid nama di menu ini disembunyikan.
+	p1_row.visible = false
+	p2_row.visible = false
 	btn_start.pressed.connect(_on_start)
+	btn_story.pressed.connect(_on_story)
+	btn_settings.pressed.connect(_on_settings)
 	btn_how.pressed.connect(_on_how)
 	btn_quit.pressed.connect(_on_quit)
+	# Tampilkan progres Story Mode di bawah menu, kalau ada.
+	var pm = get_node_or_null("/root/ProgressManager")
+	if pm != null and pm.completed_chapters.size() > 0:
+		hint_label.text += "   |   STORY: Chapter %d/4 selesai" % pm.completed_chapters.size()
 	_refresh()
 
 
@@ -116,7 +130,21 @@ func _refresh() -> void:
 
 func _on_start() -> void:
 	_click()
-	get_tree().change_scene_to_file("res://arenas/arena_test.tscn")
+	GameSession.reset()
+	GameSession.mode = GameSession.Mode.FREE_FIGHT
+	SceneManager.change_scene("res://ui/character_select/character_select.tscn")
+
+
+func _on_story() -> void:
+	_click()
+	GameSession.reset()
+	GameSession.mode = GameSession.Mode.STORY
+	SceneManager.change_scene("res://ui/chapter_map/chapter_map.tscn")
+
+
+func _on_settings() -> void:
+	_click()
+	SceneManager.change_scene("res://ui/settings/settings.tscn")
 
 
 func _on_how() -> void:

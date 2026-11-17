@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ChapterData" format=3]
+
+[ext_resource type="Script" path="res://data/chapter_data.gd" id="1_gf8y1"]
+
+[resource]
+script = ExtResource("1_gf8y1")
+id = "ch4"
+title = "Menara Voss"
+arena_bg = "res://assets/backgrounds/menara_voss.png"
+stages = Array[String](["pengawal_elit", "pengawal_elit", "pengawal_elit"])
+boss_id = "alaric_voss"

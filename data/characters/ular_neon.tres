@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_ybqu6"]
+
+[resource]
+script = ExtResource("1_ybqu6")
+id = "ular_neon"
+display_name = "Ular Neon"
+country = "Karang Hitam"
+style = "Hit & run"
+bio = "Pembunuh bayaran Lorong Neon yang sangat cepat; ia menyerang lalu mundur jauh sebelum sempat dibalas, seperti ular menyambar."
+hp = 130
+dmg = 1.1
+spd = 1.3
+trait_id = "boss_hitrun"
+trait_desc = "Boss: pola hitrun — setelah menyerang, mundur jauh dan lama."
+folder = "res://assets/bosses/boss_ular_neon"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_dieno"]
+
+[resource]
+script = ExtResource("1_dieno")
+id = "lin"
+display_name = "Lin Meihua"
+country = "Tiongkok"
+style = "Kung Fu"
+bio = "Praktisi kung fu dari Tiongkok yang merangkai pukulan demi pukulan tanpa henti; makin panjang kombonya, makin ringan pengurangan damage yang ia terima dari scaling kombo."
+hp = 90
+dmg = 0.8
+spd = 1.05
+trait_id = "lin_combo"
+trait_desc = "Kombo panjang: scaling kombo lebih ringan (hit ke-2 95%, ke-3 90%, turun 5% per hit, min 50%)."
+folder = "res://assets/fighters/fighter_lin"

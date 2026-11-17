@@ -709,12 +709,21 @@ horizontal_alignment = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=394548440]
 
 [node name="CountdownLabel" type="Label" parent="CanvasLayer" unique_id=1852352887]
-offset_left = 616.0
-offset_top = 229.0
-offset_right = 673.0
-offset_bottom = 366.0
-theme_override_colors/font_color = Color(1, 1, 0.2627451, 1)
-theme_override_font_sizes/font_size = 100
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -120.0
+offset_right = 400.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.2, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 110
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -727,12 +736,21 @@ layer = 10
 
 [node name="KOLabel" type="Label" parent="OverlayLayer" unique_id=1968302121]
 visible = false
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 240.0
-offset_bottom = 460.0
-theme_override_colors/font_color = Color(1, 0.2, 0.15, 1)
-theme_override_font_sizes/font_size = 150
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -120.0
+offset_right = 400.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.15, 0.1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 28
+theme_override_font_sizes/font_size = 160
 text = "K.O.!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -818,9 +836,12 @@ theme_override_constants/separation = 12
 
 [node name="WinnerLabel" type="Label" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox" unique_id=1733002892]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 56
 text = "PEMAIN 1 MENANG!"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BtnRematch" type="Button" parent="OverlayLayer/GameOverMenu/Center/Panel/VBox" unique_id=1993900460]
 custom_minimum_size = Vector2(320, 52)

@@ -1,0 +1,861 @@
+{
+ "generated": "2026-11-11",
+ "note": "Palette-swap placeholder (bukan art baru). Wiring ke fighter.gd dilakukan koordinator; file ini hanya data.",
+ "characters": {
+  "buruh_bayaran": {
+   "kind": "enemy",
+   "basis": "dmitri",
+   "hue_shift_deg": 30,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_buruh",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     130
+    ],
+    "walk": [
+     24,
+     136
+    ],
+    "run": [
+     6,
+     135
+    ],
+    "jump": [
+     13,
+     212
+    ],
+    "attack_1": [
+     21,
+     135
+    ],
+    "attack_2": [
+     21,
+     140
+    ],
+    "attack_3": [
+     21,
+     152
+    ],
+    "shield": [
+     4,
+     200
+    ],
+    "hurt": [
+     4,
+     200
+    ],
+    "dead": [
+     4,
+     269
+    ]
+   },
+   "sprite_scale": 1.132,
+   "feet_y": 244,
+   "anim_fix": {
+    "walk": [
+     1.132,
+     -128.9
+    ],
+    "run": [
+     1.302,
+     -125.9
+    ],
+    "jump": [
+     1.132,
+     -143.6
+    ],
+    "attack_1": [
+     1.293,
+     -141.9
+    ],
+    "attack_2": [
+     1.44,
+     -154.0
+    ],
+    "attack_3": [
+     1.132,
+     -128.9
+    ],
+    "shield": [
+     1.132,
+     -139.0
+    ],
+    "hurt": [
+     1.132,
+     -143.6
+    ],
+    "dead": [
+     1.132,
+     -134.5
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 212.0,
+   "screen_body_h_px": 240.0,
+   "placeholder": true
+  },
+  "penyelundup": {
+   "kind": "enemy",
+   "basis": "marco",
+   "hue_shift_deg": 150,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_penyelundup",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     133
+    ],
+    "walk": [
+     12,
+     136
+    ],
+    "run": [
+     6,
+     138
+    ],
+    "jump": [
+     7,
+     130
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     140
+    ],
+    "attack_3": [
+     11,
+     140
+    ],
+    "shield": [
+     4,
+     125
+    ],
+    "hurt": [
+     4,
+     139
+    ],
+    "dead": [
+     4,
+     138
+    ]
+   },
+   "sprite_scale": 1.263,
+   "feet_y": 228,
+   "anim_fix": {
+    "walk": [
+     1.263,
+     -148.9
+    ],
+    "run": [
+     1.452,
+     -129.8
+    ],
+    "jump": [
+     1.621,
+     -154.3
+    ],
+    "attack_1": [
+     1.263,
+     -143.9
+    ],
+    "attack_2": [
+     1.263,
+     -138.8
+    ],
+    "attack_3": [
+     1.263,
+     -152.7
+    ],
+    "shield": [
+     1.263,
+     -147.7
+    ],
+    "hurt": [
+     1.166,
+     -135.9
+    ],
+    "dead": [
+     1.409,
+     -150.9
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 190.0,
+   "screen_body_h_px": 240.0,
+   "placeholder": true
+  },
+  "geng_jalanan": {
+   "kind": "enemy",
+   "basis": "tyrone",
+   "hue_shift_deg": 200,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_geng",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     131
+    ],
+    "walk": [
+     12,
+     140
+    ],
+    "run": [
+     6,
+     140
+    ],
+    "jump": [
+     7,
+     153
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     140
+    ],
+    "attack_3": [
+     11,
+     140
+    ],
+    "shield": [
+     4,
+     196
+    ],
+    "hurt": [
+     4,
+     124
+    ],
+    "dead": [
+     4,
+     197
+    ]
+   },
+   "sprite_scale": 1.206,
+   "feet_y": 238,
+   "anim_fix": {
+    "walk": [
+     1.206,
+     -143.9
+    ],
+    "run": [
+     1.387,
+     -130.7
+    ],
+    "jump": [
+     1.052,
+     -136.3
+    ],
+    "attack_1": [
+     1.206,
+     -137.8
+    ],
+    "attack_2": [
+     1.42,
+     -142.1
+    ],
+    "attack_3": [
+     1.057,
+     -139.0
+    ],
+    "shield": [
+     0.946,
+     -125.4
+    ],
+    "hurt": [
+     1.206,
+     -154.7
+    ],
+    "dead": [
+     1.206,
+     -145.7
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 199.0,
+   "screen_body_h_px": 240.0,
+   "placeholder": true
+  },
+  "akrobat": {
+   "kind": "enemy",
+   "basis": "han",
+   "hue_shift_deg": 90,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_akrobat",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     129
+    ],
+    "walk": [
+     12,
+     138
+    ],
+    "run": [
+     6,
+     140
+    ],
+    "jump": [
+     7,
+     207
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     267
+    ],
+    "attack_3": [
+     11,
+     228
+    ],
+    "shield": [
+     4,
+     188
+    ],
+    "hurt": [
+     4,
+     140
+    ],
+    "dead": [
+     4,
+     140
+    ]
+   },
+   "sprite_scale": 1.218,
+   "feet_y": 244,
+   "anim_fix": {
+    "walk": [
+     1.218,
+     -131.8
+    ],
+    "run": [
+     1.401,
+     -136.8
+    ],
+    "jump": [
+     0.941,
+     -126.7
+    ],
+    "attack_1": [
+     1.218,
+     -146.4
+    ],
+    "attack_2": [
+     0.979,
+     -129.4
+    ],
+    "attack_3": [
+     1.218,
+     -105.0
+    ],
+    "shield": [
+     0.963,
+     -129.4
+    ],
+    "hurt": [
+     1.218,
+     -133.0
+    ],
+    "dead": [
+     1.218,
+     -142.8
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 197.0,
+   "screen_body_h_px": 239.9,
+   "placeholder": true
+  },
+  "murid_dojo": {
+   "kind": "enemy",
+   "basis": "sora",
+   "hue_shift_deg": -50,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_murid",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     128
+    ],
+    "walk": [
+     12,
+     131
+    ],
+    "run": [
+     6,
+     137
+    ],
+    "jump": [
+     7,
+     138
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     140
+    ],
+    "attack_3": [
+     11,
+     139
+    ],
+    "shield": [
+     4,
+     129
+    ],
+    "hurt": [
+     4,
+     192
+    ],
+    "dead": [
+     4,
+     263
+    ]
+   },
+   "sprite_scale": 1.124,
+   "feet_y": 244,
+   "anim_fix": {
+    "walk": [
+     1.124,
+     -134.8
+    ],
+    "run": [
+     1.293,
+     -114.1
+    ],
+    "jump": [
+     1.266,
+     -135.4
+    ],
+    "attack_1": [
+     1.269,
+     -133.1
+    ],
+    "attack_2": [
+     1.124,
+     -133.6
+    ],
+    "attack_3": [
+     1.345,
+     -137.8
+    ],
+    "shield": [
+     1.124,
+     -133.6
+    ],
+    "hurt": [
+     1.124,
+     -144.3
+    ],
+    "dead": [
+     1.124,
+     -139.8
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 213.5,
+   "screen_body_h_px": 240.0,
+   "placeholder": true
+  },
+  "pengawal_elit": {
+   "kind": "enemy",
+   "basis": "samurai",
+   "hue_shift_deg": 180,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/fighters/fighter_pengawal",
+   "frame_h": 128,
+   "frames": {
+    "idle": [
+     6,
+     128
+    ],
+    "walk": [
+     8,
+     128
+    ],
+    "run": [
+     8,
+     128
+    ],
+    "jump": [
+     12,
+     128
+    ],
+    "attack_1": [
+     7,
+     110
+    ],
+    "attack_2": [
+     5,
+     102
+    ],
+    "attack_3": [
+     3,
+     128
+    ],
+    "shield": [
+     2,
+     128
+    ],
+    "hurt": [
+     2,
+     128
+    ],
+    "dead": [
+     3,
+     128
+    ]
+   },
+   "sprite_scale": 2.909,
+   "feet_y": 128,
+   "anim_fix": {
+    "walk": [
+     2.909,
+     -196.2
+    ],
+    "run": [
+     3.129,
+     -210.3
+    ],
+    "jump": [
+     3.248,
+     -217.9
+    ],
+    "attack_1": [
+     2.909,
+     -196.2
+    ],
+    "attack_2": [
+     2.909,
+     -196.2
+    ],
+    "attack_3": [
+     2.909,
+     -196.2
+    ],
+    "shield": [
+     2.909,
+     -196.2
+    ],
+    "hurt": [
+     3.068,
+     -206.4
+    ],
+    "dead": [
+     3.781,
+     -252.0
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 82.5,
+   "screen_body_h_px": 240.0,
+   "placeholder": true
+  },
+  "kapten_brak": {
+   "kind": "boss",
+   "basis": "dmitri",
+   "hue_shift_deg": 210,
+   "saturation_mult": 1.0,
+   "value_mult": 1.0,
+   "folder": "res://assets/bosses/boss_kapten_brak",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     10,
+     256
+    ],
+    "walk": [
+     24,
+     136
+    ],
+    "run": [
+     6,
+     135
+    ],
+    "jump": [
+     13,
+     212
+    ],
+    "attack_1": [
+     21,
+     135
+    ],
+    "attack_2": [
+     21,
+     140
+    ],
+    "attack_3": [
+     21,
+     152
+    ],
+    "shield": [
+     4,
+     200
+    ],
+    "hurt": [
+     4,
+     200
+    ],
+    "dead": [
+     4,
+     269
+    ]
+   },
+   "sprite_scale": 1.983,
+   "feet_y": 256,
+   "anim_fix": {
+    "walk": [
+     1.182,
+     -134.1
+    ],
+    "run": [
+     1.529,
+     -146.1
+    ],
+    "jump": [
+     1.062,
+     -135.3
+    ],
+    "attack_1": [
+     1.29,
+     -141.6
+    ],
+    "attack_2": [
+     1.455,
+     -155.5
+    ],
+    "attack_3": [
+     1.137,
+     -129.4
+    ],
+    "shield": [
+     1.084,
+     -133.6
+    ],
+    "hurt": [
+     1.106,
+     -140.5
+    ],
+    "dead": [
+     1.487,
+     -173.6
+    ]
+   },
+   "notes": "KOREKSI koordinator: anim_fix manifest awal dihitung terhadap idle Dmitri (salah basis) sehingga Kapten mengecil saat jalan; dihitung ulang terhadap idle Kapten sendiri — animasi tegak diskalakan agar tinggi badan median = 240px, dead memakai rumus proyek.",
+   "idle_median_body_h_px": 121.0,
+   "screen_body_h_px": 239.9,
+   "placeholder": true
+  },
+  "ular_neon": {
+   "kind": "boss",
+   "basis": "anika",
+   "hue_shift_deg": 100,
+   "saturation_mult": 1.35,
+   "value_mult": 1.08,
+   "folder": "res://assets/bosses/boss_ular_neon",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     139
+    ],
+    "walk": [
+     12,
+     139
+    ],
+    "run": [
+     6,
+     139
+    ],
+    "jump": [
+     7,
+     253
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     140
+    ],
+    "attack_3": [
+     11,
+     140
+    ],
+    "shield": [
+     4,
+     103
+    ],
+    "hurt": [
+     4,
+     198
+    ],
+    "dead": [
+     4,
+     268
+    ]
+   },
+   "sprite_scale": 1.304,
+   "feet_y": 227,
+   "anim_fix": {
+    "walk": [
+     1.461,
+     -137.1
+    ],
+    "run": [
+     1.5,
+     -133.0
+    ],
+    "jump": [
+     1.108,
+     -123.0
+    ],
+    "attack_1": [
+     1.304,
+     -146.9
+    ],
+    "attack_2": [
+     1.304,
+     -152.1
+    ],
+    "attack_3": [
+     1.591,
+     -159.6
+    ],
+    "shield": [
+     1.304,
+     -169.1
+    ],
+    "hurt": [
+     1.142,
+     -153.9
+    ],
+    "dead": [
+     1.304,
+     -163.9
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 184.0,
+   "screen_body_h_px": 239.9,
+   "placeholder": true
+  },
+  "guru_sunyi": {
+   "kind": "boss",
+   "basis": "lin",
+   "hue_shift_deg": 0,
+   "saturation_mult": 0.25,
+   "value_mult": 0.72,
+   "folder": "res://assets/bosses/boss_guru_sunyi",
+   "frame_h": 256,
+   "frames": {
+    "idle": [
+     6,
+     140
+    ],
+    "walk": [
+     12,
+     134
+    ],
+    "run": [
+     6,
+     140
+    ],
+    "jump": [
+     7,
+     263
+    ],
+    "attack_1": [
+     11,
+     140
+    ],
+    "attack_2": [
+     11,
+     140
+    ],
+    "attack_3": [
+     11,
+     138
+    ],
+    "shield": [
+     4,
+     133
+    ],
+    "hurt": [
+     4,
+     140
+    ],
+    "dead": [
+     4,
+     268
+    ]
+   },
+   "sprite_scale": 1.24,
+   "feet_y": 237,
+   "anim_fix": {
+    "walk": [
+     1.141,
+     -134.3
+    ],
+    "run": [
+     1.364,
+     -132.8
+    ],
+    "jump": [
+     1.24,
+     -143.9
+    ],
+    "attack_1": [
+     1.24,
+     -143.9
+    ],
+    "attack_2": [
+     1.24,
+     -143.9
+    ],
+    "attack_3": [
+     1.385,
+     -138.8
+    ],
+    "shield": [
+     1.24,
+     -136.5
+    ],
+    "hurt": [
+     1.24,
+     -143.9
+    ],
+    "dead": [
+     1.24,
+     -148.9
+    ]
+   },
+   "notes": "",
+   "idle_median_body_h_px": 193.5,
+   "screen_body_h_px": 239.9,
+   "placeholder": true
+  }
+ }
+}

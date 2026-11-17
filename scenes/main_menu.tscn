@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/backgrounds/terrace.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/main_menu.png" id="2"]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -109,6 +109,16 @@ columns = 6
 custom_minimum_size = Vector2(320, 56)
 theme_override_font_sizes/font_size = 26
 text = "MULAI BERTARUNG"
+
+[node name="BtnStory" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(320, 56)
+theme_override_font_sizes/font_size = 26
+text = "MODE CERITA"
+
+[node name="BtnSettings" type="Button" parent="Center/VBox"]
+custom_minimum_size = Vector2(320, 44)
+theme_override_font_sizes/font_size = 20
+text = "PENGATURAN"
 
 [node name="BtnHow" type="Button" parent="Center/VBox"]
 custom_minimum_size = Vector2(320, 44)

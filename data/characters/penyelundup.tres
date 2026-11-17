@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_baiut"]
+
+[resource]
+script = ExtResource("1_baiut")
+id = "penyelundup"
+display_name = "Penyelundup"
+country = "Karang Hitam"
+style = "Pisau jalanan"
+bio = "Penyelundup Dermaga yang licin dan cepat; menyerang dari jarak dekat lalu menghilang sebelum sempat dibalas."
+hp = 85
+dmg = 0.9
+spd = 1.2
+trait_id = "generic"
+trait_desc = "Generik: cepat dan licin, tanpa trait khusus."
+folder = "res://assets/fighters/fighter_penyelundup"

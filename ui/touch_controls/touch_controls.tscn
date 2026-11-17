@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://d3xuv8342kdsm"]
+
+[ext_resource type="Texture2D" path="res://assets/ui/touch/left.png" id="1_left"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/right.png" id="2_right"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/jump.png" id="3_jump"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/crouch.png" id="4_crouch"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/atk1.png" id="5_atk1"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/atk2.png" id="6_atk2"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/atk3.png" id="7_atk3"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/block.png" id="8_block"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/special.png" id="9_special"]
+[ext_resource type="Texture2D" path="res://assets/ui/touch/throw.png" id="10_throw"]
+
+[node name="TouchControls" type="CanvasLayer"]
+layer = 50
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BtnLeft" type="TouchScreenButton" parent="Control"]
+position = Vector2(35, 575)
+texture_normal = ExtResource("1_left")
+action = "p1_left"
+
+[node name="BtnRight" type="TouchScreenButton" parent="Control"]
+position = Vector2(165, 575)
+texture_normal = ExtResource("2_right")
+action = "p1_right"
+
+[node name="BtnCrouch" type="TouchScreenButton" parent="Control"]
+position = Vector2(100, 595)
+texture_normal = ExtResource("4_crouch")
+action = "p1_crouch"
+
+[node name="BtnJump" type="TouchScreenButton" parent="Control"]
+position = Vector2(870, 520)
+texture_normal = ExtResource("3_jump")
+action = "p1_jump"
+
+[node name="BtnBlock" type="TouchScreenButton" parent="Control"]
+position = Vector2(970, 430)
+texture_normal = ExtResource("8_block")
+action = "p1_block"
+
+[node name="BtnAtk1" type="TouchScreenButton" parent="Control"]
+position = Vector2(980, 550)
+texture_normal = ExtResource("5_atk1")
+action = "p1_attack_1"
+
+[node name="BtnAtk2" type="TouchScreenButton" parent="Control"]
+position = Vector2(1075, 460)
+texture_normal = ExtResource("6_atk2")
+action = "p1_attack_2"
+
+[node name="BtnAtk3" type="TouchScreenButton" parent="Control"]
+position = Vector2(1170, 390)
+texture_normal = ExtResource("7_atk3")
+action = "p1_attack_3"
+
+[node name="BtnThrow" type="TouchScreenButton" parent="Control"]
+position = Vector2(1085, 580)
+texture_normal = ExtResource("10_throw")
+action = "p1_throw"
+
+[node name="BtnSpecial" type="TouchScreenButton" parent="Control"]
+position = Vector2(1175, 500)
+texture_normal = ExtResource("9_special")
+action = "p1_special"

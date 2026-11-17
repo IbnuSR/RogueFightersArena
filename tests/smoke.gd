@@ -32,6 +32,20 @@ func _wait_until(cond: Callable, max_frames: int = 1200) -> void:
 	printerr("[SMOKE] TIMEOUT menunggu kondisi")
 
 
+# Menunggu kondisi dengan jam nyata (bukan jumlah frame): transisi
+# SceneManager memakai fade real-time 0.5 dtk, sementara frame headless
+# bisa jalan lebih cepat dari waktu nyata sehingga _wait_until kehabisan
+# frame padahal fade belum selesai.
+func _wait_until_rt(cond: Callable, max_seconds: float = 5.0) -> void:
+	var elapsed := 0.0
+	while elapsed < max_seconds:
+		if cond.call():
+			return
+		await create_timer(0.05).timeout
+		elapsed += 0.05
+	printerr("[SMOKE] TIMEOUT (waktu nyata) menunggu kondisi")
+
+
 func _run() -> void:
 	print("[SMOKE] mulai")
 	# Pengaman: paksa keluar setelah 150 detik agar tidak menggantung selamanya
@@ -53,14 +67,25 @@ func _run() -> void:
 	_check(menu.has_node("Center/VBox/ModeRow/Btn1P"), "tombol 1P ada")
 	_check(menu.has_node("Center/VBox/BtnStart"), "tombol start ada")
 
-	# 2. Masuk arena (mode arcade default)
+	# 2. MULAI BERTARUNG -> pilih karakter (P1) -> pilih lawan (P2) -> arena
+	# (SceneManager pakai fade 0.5 dtk, jadi tunggu sampai scene berganti.)
 	menu._on_start()
-	await _frames(30)
-	var arena = current_scene
-	_check(arena != null and arena.name == "ArenaTest", "arena terbuka")
-	if arena == null:
+	await _wait_until_rt(func(): return current_scene != null and current_scene.name == "CharacterSelect")
+	var sel = current_scene
+	_check(sel != null and sel.name == "CharacterSelect", "MULAI membuka pilih karakter")
+	if sel == null:
 		_finish()
 		return
+	sel._on_pick("samurai")
+	_check(sel.get("_selected") == "samurai", "P1 terpilih: samurai")
+	sel._on_start()
+	await _frames(5)
+	_check(sel.get("_step") == 2, "langkah 2: pilih lawan")
+	sel._on_pick("shinobi")
+	sel._on_start()
+	await _wait_until_rt(func(): return current_scene != null and current_scene.name == "ArenaTest")
+	var arena = current_scene
+	_check(arena != null and arena.name == "ArenaTest", "arena terbuka setelah pilih lawan")
 	var f1 = arena.get_node("Fighter")
 	var f2 = arena.get_node("Fighter2")
 	_check(f1.get_node("Sprite").sprite_frames.get_animation_names().size() == 10, "P1 punya 10 animasi")
@@ -134,9 +159,12 @@ func _run() -> void:
 	_check(fm.get("max_health") == 90, "Marco HP 90")
 	_check(abs(fm.get("spd_mult") - 1.15) < 0.01, "Marco speed 1.15x")
 
-	# 9. Semua 12 karakter: 10 animasi + stat terisi + semua animasi bisa diputar
+	# 9. Semua 22 karakter: 10 animasi + stat terisi + semua animasi bisa diputar
 	var all_chars := ["samurai", "shinobi", "arga", "marco", "dmitri", "lin",
-		"nok", "sora", "tyrone", "han", "valeria", "anika"]
+		"nok", "sora", "tyrone", "han", "valeria", "anika",
+		"buruh_bayaran", "penyelundup", "geng_jalanan", "akrobat",
+		"murid_dojo", "pengawal_elit", "kapten_brak", "ular_neon",
+		"guru_sunyi", "alaric_voss"]
 	var anims := ["idle", "walk", "run", "jump", "attack_1", "attack_2", "attack_3",
 		"shield", "hurt", "dead"]
 	for cid in all_chars:
@@ -156,6 +184,15 @@ func _run() -> void:
 		# posisi sprite valid (tidak NaN, di dalam layar)
 		var sp: Vector2 = f.get_node("Sprite").position
 		_check(abs(sp.y) < 400.0, cid + ": sprite y wajar")
+
+	# 10. SceneManager: pindah scene 2x cepat -> yang kedua tetap jalan
+	# (dulu: permintaan kedua dibuang diam-diam saat transisi masih jalan).
+	var sm = root.get_node_or_null("SceneManager")
+	sm.change_scene("res://scenes/main_menu.tscn")
+	sm.change_scene("res://ui/character_select/character_select.tscn")
+	await _wait_until_rt(func(): return current_scene != null and current_scene.name == "CharacterSelect", 5.0)
+	_check(current_scene != null and current_scene.name == "CharacterSelect",
+		"SceneManager antre: pindah cepat 2x tetap sampai di tujuan kedua")
 
 	_finish()
 

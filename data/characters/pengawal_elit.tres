@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_cnk6p"]
+
+[resource]
+script = ExtResource("1_cnk6p")
+id = "pengawal_elit"
+display_name = "Pengawal Elit"
+country = "Karang Hitam"
+style = "Gabungan gaya"
+bio = "Pengawal elit Menara Voss yang menggabungkan berbagai gaya bela diri; barisan terakhir sebelum Alaric Voss."
+hp = 115
+dmg = 1.1
+spd = 1.0
+trait_id = "generic"
+trait_desc = "Generik: gabungan gaya, tanpa trait khusus."
+folder = "res://assets/fighters/fighter_pengawal"

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_b3umw"]
+
+[resource]
+script = ExtResource("1_b3umw")
+id = "nok"
+display_name = "Nok Chaiyo"
+country = "Thailand"
+style = "Muay Thai"
+bio = "Petarung muay thai dari Thailand yang menghancurkan lawan dari jarak dekat; lutut dan sikunya makin mematikan saat ia sudah menempel di hadapan lawan."
+hp = 105
+dmg = 1.1
+trait_id = "nok_close"
+trait_desc = "Lutut/siku jarak dekat: damage +25% kalau jarak <100px."
+folder = "res://assets/fighters/fighter_nok"

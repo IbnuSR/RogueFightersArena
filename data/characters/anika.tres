@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_jehmp"]
+
+[resource]
+script = ExtResource("1_jehmp")
+id = "anika"
+display_name = "Anika Rao"
+country = "India"
+style = "Kalaripayattu"
+bio = "Praktisi kalaripayattu dari India yang tubuhnya lentur luar biasa; dari posisi jongkok ia tetap bisa bergerak dan menyerang rendah lebih cepat dari siapa pun."
+hp = 85
+dmg = 0.9
+spd = 1.2
+trait_id = "anika_flex"
+trait_desc = "Lentur: saat jongkok bisa bergerak pelan (50% walk speed) dan attack_1 jongkok lebih cepat (startup & recovery -20%)."
+folder = "res://assets/fighters/fighter_anika"

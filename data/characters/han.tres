@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_57jnd"]
+
+[resource]
+script = ExtResource("1_57jnd")
+id = "han"
+display_name = "Han Jiwoo"
+country = "Korea Selatan"
+style = "Taekwondo"
+bio = "Taekwondoin Korea Selatan dengan tendangan tinggi yang menjangkau jauh; tendangan beratnya melayang lebih jauh dan lebih keras daripada tendangan petarung lain."
+hp = 90
+spd = 1.1
+trait_id = "han_longkick"
+trait_desc = "Tendangan jauh: attack_3 reach +40 dan damage +3."
+folder = "res://assets/fighters/fighter_han"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_4s878"]
+
+[resource]
+script = ExtResource("1_4s878")
+id = "alaric_voss"
+display_name = "Alaric Voss"
+country = "Karang Hitam"
+style = "Gabungan jurus 3 boss"
+bio = "Kolektor bela diri misterius yang mengadakan turnamen Rogue Fighters Arena; ia menyerap teknik para petarung dan menggabungkan jurus ketiga boss sebelumnya."
+hp = 200
+dmg = 1.3
+spd = 1.0
+trait_id = "boss_voss"
+trait_desc = "Boss akhir: fase 1 pola charge (Brak), fase 2 ganti hit & run (Ular) + sering menangkis (Guru)."
+folder = "res://assets/bosses/boss_alaric_voss"

@@ -48,13 +48,13 @@ custom_minimum_size = Vector2(420, 84)
 layout_mode = 2
 text = "Lanjutkan"
 
-[node name="StoryModeButton" type="Button" parent="Center/Content/Buttons" unique_id=1165757549]
+[node name="StoryButton" type="Button" parent="Center/Content/Buttons" unique_id=1165757549]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(420, 84)
 layout_mode = 2
 text = "Mode Cerita"
 
-[node name="FreeBattleButton" type="Button" parent="Center/Content/Buttons" unique_id=1886677412]
+[node name="FreeFightButton" type="Button" parent="Center/Content/Buttons" unique_id=1886677412]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(420, 84)
 layout_mode = 2
@@ -72,3 +72,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(420, 84)
 layout_mode = 2
 text = "Keluar"
+
+[node name="ToastLabel" type="Label" parent="Center/Content" unique_id=1415092799]
+unique_name_in_owner = true
+layout_mode = 2
+text = ""
+horizontal_alignment = 1

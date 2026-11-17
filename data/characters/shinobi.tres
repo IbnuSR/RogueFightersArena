@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_broxi"]
+
+[resource]
+script = ExtResource("1_broxi")
+id = "shinobi"
+display_name = "Shinobi"
+country = "Jepang"
+style = "Ninjutsu"
+bio = "Bayangan yang bergerak lebih cepat dari mata; Shinobi mengandalkan serangan pertama yang kilat, lalu lenyap sebelum lawan sempat membalas."
+trait_id = "shinobi_swift"
+trait_desc = "Cepat: attack_1 startup 20% lebih singkat."
+folder = "res://assets/enemies/enemy_shinobi"

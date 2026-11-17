@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3]
+
+[ext_resource type="Script" path="res://data/character_data.gd" id="1_m2272"]
+
+[resource]
+script = ExtResource("1_m2272")
+id = "geng_jalanan"
+display_name = "Geng Jalanan"
+country = "Karang Hitam"
+style = "Tarung jalanan"
+bio = "Anggota geng Lorong Neon yang bertarung kasar dan berani; tidak punya teknik resmi, tapi tidak kenal takut."
+hp = 95
+dmg = 1.0
+spd = 1.0
+trait_id = "generic"
+trait_desc = "Generik: gaya jalanan kasar, tanpa trait khusus."
+folder = "res://assets/fighters/fighter_geng"

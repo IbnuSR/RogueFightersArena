@@ -7,6 +7,11 @@ const FADE_TIME := 0.25
 
 var _fade_rect: ColorRect
 var _busy := false
+# Pindah scene yang diminta saat transisi masih jalan: dulu dibuang diam-diam
+# (return) sehingga tombol terasa mati kalau ditekan cepat — sekarang diantre
+# dan dijalankan setelah transisi selesai.
+var _pending: String = ""
+var _pending_remember := true
 var _history: Array[String] = []
 
 
@@ -23,6 +28,8 @@ func _ready() -> void:
 
 func change_scene(path: String, remember_current: bool = true) -> void:
 	if _busy:
+		_pending = path
+		_pending_remember = remember_current
 		return
 	if not ResourceLoader.exists(path):
 		push_warning("Scene belum ada: " + path)
@@ -48,6 +55,11 @@ func change_scene(path: String, remember_current: bool = true) -> void:
 	_fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_busy = false
 	transition_finished.emit()
+	if _pending != "":
+		var p := _pending
+		var r := _pending_remember
+		_pending = ""
+		change_scene(p, r)
 
 
 func go_back(fallback: String = "") -> void:

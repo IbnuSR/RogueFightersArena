@@ -25,6 +25,8 @@ const WINS_REQUIRED := 2
 @onready var pause_menu: Control = $OverlayLayer/PauseMenu
 @onready var gameover_menu: Control = $OverlayLayer/GameOverMenu
 @onready var winner_label: Label = $OverlayLayer/GameOverMenu/Center/Panel/VBox/WinnerLabel
+@onready var btn_rematch: Button = $OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnRematch
+@onready var btn_go_menu: Button = $OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnGoMenu
 
 # DAFTAR BACKGROUND: Path sudah pakai underscore
 var list_background: Array[Texture2D] = [
@@ -43,16 +45,100 @@ var match_over: bool = false
 var is_paused: bool = false
 var shake: float = 0.0
 var ko_active: bool = false
+# Story Mode: stage yang sedang dimainkan & apakah banner FASE 2 sudah tampil.
+var _phase2_shown: bool = false
+var _stage_label: Label
+var _story_chapter_done: bool = false
+
+
+# ---------- Story Mode ----------
+
+func _is_story() -> bool:
+	return GameSession.mode == GameSession.Mode.STORY
+
+
+func _story_chapter():
+	if GameSession.chapter_id == "":
+		return null
+	return load("res://data/chapters/%s.tres" % GameSession.chapter_id)
+
+
+func _story_opponent_id() -> String:
+	var chapter = _story_chapter()
+	if chapter == null:
+		return GameState.p2_character
+	var stages: Array = chapter.get("stages")
+	if GameSession.stage_index < stages.size():
+		return String(stages[GameSession.stage_index])
+	return String(chapter.get("boss_id"))
+
+
+func _story_is_boss_stage() -> bool:
+	var chapter = _story_chapter()
+	if chapter == null:
+		return false
+	var stages: Array = chapter.get("stages")
+	return GameSession.stage_index >= stages.size()
+
+
+func _story_wins_required() -> int:
+	# Story Mode: musuh biasa 1 ronde, boss 1 pertarungan (2 fase).
+	return 1 if _is_story() else WINS_REQUIRED
+
+
+func _apply_boss_ai() -> void:
+	# Pola khas boss (charge/hitrun/counter) dari trait_id di .tres-nya.
+	# Sebelumnya tidak ada yang menyetel boss_pattern, jadi pola boss
+	# tidak pernah aktif — sekarang disetel di sini tiap lawan berubah.
+	var ai = fighter_2.get_node_or_null("AIController")
+	if ai == null:
+		return
+	var pattern := ""
+	var cd = null
+	var path := "res://data/characters/%s.tres" % GameState.p2_character
+	if ResourceLoader.exists(path):
+		cd = load(path)
+	if cd != null:
+		match String(cd.get("trait_id")):
+			"boss_charge":
+				pattern = "charge"
+			"boss_hitrun":
+				pattern = "hitrun"
+			"boss_counter":
+				pattern = "counter"
+			"boss_voss":
+				# Voss menggabungkan jurus 3 boss: fase 1 charge (Brak);
+				# fase 2 (di _process) ganti hit & run (Ular) + sering
+				# menangkis (Guru).
+				pattern = "charge"
+	ai.set("boss_pattern", pattern)
+	ai.set("phase2", false)
+	_phase2_shown = false
 
 
 # Dipanggil SEBELUM _ready milik fighter: agar karakter sudah benar
 # saat SpriteFrames dibangun.
 func _enter_tree() -> void:
-	$Fighter.set("character_id", GameState.p1_character)
-	$Fighter2.set("character_id", GameState.p2_character)
+	if _is_story():
+		if GameSession.player_id != "":
+			GameState.p1_character = GameSession.player_id
+		GameState.p2_character = _story_opponent_id()
+		# Latar chapter mengikuti chapter_id; tapi jangan menimpa arena_id
+		# yang sudah diisi langsung (mis. oleh tes chapter_bg).
+		if GameSession.chapter_id != "":
+			GameSession.arena_id = GameSession.chapter_id
+	else:
+		if GameSession.player_id != "":
+			GameState.p1_character = GameSession.player_id
+		if GameSession.opponent_id != "":
+			GameState.p2_character = GameSession.opponent_id
+	$Fighter.character_id = GameState.p1_character
+	$Fighter2.character_id = GameState.p2_character
 
 
 func _ready() -> void:
+	fighter_1.set_character(GameState.p1_character)
+	fighter_2.set_character(GameState.p2_character)
 	_setup_controllers()
 	_setup_bar(fighter_1, p1_bar)
 	_setup_bar(fighter_2, p2_bar)
@@ -68,6 +154,33 @@ func _ready() -> void:
 	_reset_win_boxes()
 	_update_timer_label()
 
+	# Kontrol sentuh (TouchScreenButton) hanya diaktifkan jika di platform mobile / web sentuh
+	# Di laptop/PC dinonaktifkan agar tidak menutupi layar dan menggunakan keyboard
+	if OS.has_feature("mobile") and ResourceLoader.exists("res://ui/touch_controls/touch_controls.tscn"):
+		var tc_scene = load("res://ui/touch_controls/touch_controls.tscn")
+		if tc_scene:
+			var tc = tc_scene.instantiate()
+			add_child(tc)
+
+	if _is_story():
+		# Story Mode 1 ronde: kotak kemenangan Best-of-3 disembunyikan,
+		# diganti label chapter & stage.
+		for box in [p1_win_1, p1_win_2, p2_win_1, p2_win_2]:
+			if box:
+				box.visible = false
+		_stage_label = Label.new()
+		_stage_label.position = Vector2(490, 108)
+		_stage_label.size = Vector2(300, 30)
+		_stage_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_stage_label.add_theme_font_size_override("font_size", 22)
+		_stage_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.2))
+		$HUD.add_child(_stage_label)
+		_update_stage_label()
+	_apply_boss_ai()
+	# Stage awal (termasuk Rematch di stage yang sama) juga kena
+	# scaling +10% HP/stage — bukan cuma saat maju stage.
+	_apply_stage_scaling()
+
 	# Tombol-tombol pause & game over
 	$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnResume.pressed.connect(_toggle_pause)
 	$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnRestart.pressed.connect(_on_restart)
@@ -78,6 +191,18 @@ func _ready() -> void:
 	Audio.play_music("bgm_battle")
 	_set_background()
 	_start_countdown()
+
+
+func _apply_stage_scaling() -> void:
+	# Musuh biasa yang sama muncul 3x per chapter (GDD §4): stage makin
+	# jauh makin kuat, +10% HP per stage. Boss tidak di-scale (stat boss
+	# sudah tinggi). health_changed meng-update bar nyawa (max ikut naik).
+	if not _is_story() or _story_is_boss_stage():
+		return
+	var scaled_hp := int(round(fighter_2.max_health * (1.0 + 0.1 * GameSession.stage_index)))
+	fighter_2.max_health = scaled_hp
+	fighter_2.health = scaled_hp
+	fighter_2.health_changed.emit(scaled_hp, scaled_hp)
 
 
 func _setup_controllers() -> void:
@@ -95,7 +220,35 @@ func _setup_controllers() -> void:
 			GameState.apply_difficulty(ai2)
 
 
+func _update_stage_label() -> void:
+	if _stage_label == null:
+		return
+	var n: int = int(GameSession.chapter_id.trim_prefix("ch"))
+	var stage_no: int = GameSession.stage_index + 1
+	var boss: String = " · BOSS" if _story_is_boss_stage() else ""
+	_stage_label.text = "CHAPTER %d · STAGE %d/4%s" % [n, stage_no, boss]
+
+
 func _process(delta: float) -> void:
+	# Boss Story Mode: HP <= 50% -> fase 2 (lebih agresif, banner FASE 2).
+	if _is_story() and _story_is_boss_stage() and round_active and not _phase2_shown:
+		var ai = fighter_2.get_node_or_null("AIController")
+		if ai != null and fighter_2.health <= fighter_2.max_health / 2:
+			ai.set("phase2", true)
+			_phase2_shown = true
+			# Voss fase 2: ganti pola charge -> hit & run (Ular) dan
+			# jadi sering menangkis (Guru) — gabungan 3 jurus boss.
+			if GameState.p2_character == "alaric_voss":
+				ai.set("boss_pattern", "hitrun")
+				ai.set("peluang_tangkis", 0.5)
+			Audio.play_sfx("bell", -2.0)
+			countdown_label.visible = true
+			countdown_label.add_theme_font_size_override("font_size", 80)
+			countdown_label.add_theme_color_override("font_color", Color(1.0, 0.4, 0.3))
+			countdown_label.text = "FASE 2!"
+			await get_tree().create_timer(1.5).timeout
+			if not match_over:
+				countdown_label.visible = false
 	# Timer ronde
 	if round_active and not is_paused and not match_over:
 		time_left -= delta
@@ -127,6 +280,14 @@ func _update_timer_label() -> void:
 
 
 func _set_background() -> void:
+	# Story Mode: pakai background chapter (GameSession.arena_id = ch1/ch2/ch3,
+	# path diambil dari data/chapters/<id>.tres -> arena_bg). Kalau tidak ada,
+	# jatuh ke daftar lama yang berputar tiap ronde.
+	if GameSession.arena_id != "":
+		var chapter: ChapterData = load("res://data/chapters/%s.tres" % GameSession.arena_id)
+		if chapter and chapter.arena_bg != "" and background:
+			background.texture = load(chapter.arena_bg)
+			return
 	if list_background.size() > 0 and background:
 		background.texture = list_background[bg_index]
 
@@ -140,30 +301,28 @@ func _start_countdown() -> void:
 
 	if countdown_label:
 		countdown_label.visible = true
-		countdown_label.add_theme_font_size_override("font_size", 100)
-		countdown_label.add_theme_color_override("font_color", Color.YELLOW)
+		countdown_label.add_theme_font_size_override("font_size", 130)
+		countdown_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.2)) # Emas cerah
+		countdown_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+		countdown_label.add_theme_constant_override("outline_size", 22)
 
 	countdown_label.text = "3"
 	Audio.play_sfx("countdown", -4.0)
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.8).timeout
 
 	countdown_label.text = "2"
 	Audio.play_sfx("countdown", -4.0)
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.8).timeout
 
 	countdown_label.text = "1"
 	Audio.play_sfx("countdown", -4.0)
-	await get_tree().create_timer(1.0).timeout
-
-	countdown_label.text = "READY"
 	await get_tree().create_timer(0.8).timeout
 
-	countdown_label.text = "SET"
-	await get_tree().create_timer(0.8).timeout
-
+	countdown_label.add_theme_font_size_override("font_size", 140)
+	countdown_label.add_theme_color_override("font_color", Color(1.0, 0.25, 0.15)) # Oranye kemerahan menyala
 	countdown_label.text = "FIGHT!"
 	Audio.play_sfx("bell", -2.0)
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(0.8).timeout
 
 	if countdown_label:
 		countdown_label.visible = false
@@ -210,29 +369,40 @@ func _on_timeout() -> void:
 
 func _resolve_round(p1_won: bool, reason: String) -> void:
 	countdown_label.visible = true
-	countdown_label.add_theme_font_size_override("font_size", 80)
+	countdown_label.add_theme_font_size_override("font_size", 72)
+	countdown_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	countdown_label.add_theme_constant_override("outline_size", 16)
 
 	if p1_won:
 		p1_wins += 1
 		_light_up_box(p1_wins, [p1_win_1, p1_win_2])
 		countdown_label.text = reason + "\n" + GameState.p1_label() + " MENANG RONDE!"
-		countdown_label.add_theme_color_override("font_color", Color.GREEN)
+		countdown_label.add_theme_color_override("font_color", Color(0.2, 1.0, 0.4))
 	else:
 		p2_wins += 1
 		_light_up_box(p2_wins, [p2_win_1, p2_win_2])
 		countdown_label.text = reason + "\n" + GameState.p2_label() + " MENANG RONDE!"
-		countdown_label.add_theme_color_override("font_color", Color.RED)
+		countdown_label.add_theme_color_override("font_color", Color(1.0, 0.3, 0.3))
 
 	Audio.play_sfx("round_win", -4.0)
 
-	# Ganti background untuk ronde berikutnya
-	bg_index += 1
-	if bg_index >= list_background.size():
-		bg_index = 0
+	# Ganti background untuk ronde berikutnya (Free Battle saja;
+	# Story Mode memakai background chapter yang tetap, jangan diputar).
+	if GameSession.mode != GameSession.Mode.STORY:
+		bg_index += 1
+		if bg_index >= list_background.size():
+			bg_index = 0
 	_set_background()
 
 	await get_tree().create_timer(2.5).timeout
 	countdown_label.visible = false
+
+	if _is_story():
+		if p1_won:
+			_story_advance()
+		else:
+			_show_game_over(false)
+		return
 
 	if p1_wins >= WINS_REQUIRED:
 		_show_game_over(true)
@@ -242,12 +412,59 @@ func _resolve_round(p1_won: bool, reason: String) -> void:
 		_start_next_round()
 
 
-func _show_game_over(p1_won: bool) -> void:
+func _story_advance() -> void:
+	# Buka kunci karakter yang baru dikalahkan (bisa dipakai di Free Fight).
+	var pm = get_node_or_null("/root/ProgressManager")
+	if pm != null:
+		pm.unlock_char(GameState.p2_character)
+	if _story_is_boss_stage():
+		# Boss kalah = chapter selesai, chapter berikutnya terbuka.
+		if pm != null:
+			pm.complete_chapter(GameSession.chapter_id)
+		_show_game_over(true, true)
+		return
+	GameSession.stage_index += 1
+	_update_stage_label()
+	countdown_label.visible = true
+	countdown_label.add_theme_font_size_override("font_size", 80)
+	countdown_label.add_theme_color_override("font_color", Color.GREEN)
+	countdown_label.text = "STAGE SELESAI!"
+	Audio.play_sfx("round_win", -4.0)
+	await get_tree().create_timer(2.0).timeout
+	countdown_label.visible = false
+	_start_next_stage()
+
+
+func _start_next_stage() -> void:
+	p1_wins = 0
+	p2_wins = 0
+	GameState.p2_character = _story_opponent_id()
+	fighter_2.set_character(GameState.p2_character)
+	fighter_2.reset_for_next_round()
+	# Musuh biasa yang sama muncul 3x per chapter (GDD §4: tiap chapter
+	# cuma 1-2 tipe musuh biasa): stage makin jauh makin kuat, +10% HP
+	# per stage, supaya stage 2-3 tidak terasa pengulangan yang sama.
+	_apply_stage_scaling()
+	fighter_1.reset_for_next_round()
+	p2_name.text = "%s · %s" % [GameState.p2_label(), GameState.p2_character.to_upper()]
+	_apply_boss_ai()
+	_update_stage_label()
+	_start_countdown()
+
+
+func _show_game_over(p1_won: bool, chapter_complete: bool = false) -> void:
 	match_over = true
 	Engine.time_scale = 1.0
-	winner_label.text = GameState.winner_text(p1_won)
-	winner_label.add_theme_color_override(
-		"font_color", Color.GREEN if p1_won else Color.RED)
+	if chapter_complete:
+		_story_chapter_done = true
+		var n: int = int(GameSession.chapter_id.trim_prefix("ch"))
+		winner_label.text = "CHAPTER %d SELESAI!" % n
+		winner_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.2))
+		btn_go_menu.text = "PETA CHAPTER (M)"
+	else:
+		winner_label.text = GameState.winner_text(p1_won)
+		winner_label.add_theme_color_override(
+			"font_color", Color.GREEN if p1_won else Color.RED)
 	gameover_menu.visible = true
 
 
@@ -348,4 +565,7 @@ func _on_quit_to_menu() -> void:
 	is_paused = false
 	get_tree().paused = false
 	Engine.time_scale = 1.0
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	if _story_chapter_done:
+		get_tree().change_scene_to_file("res://ui/chapter_map/chapter_map.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/menu.tscn")
