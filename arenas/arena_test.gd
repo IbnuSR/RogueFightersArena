@@ -568,4 +568,4 @@ func _on_quit_to_menu() -> void:
 	if _story_chapter_done:
 		get_tree().change_scene_to_file("res://ui/chapter_map/chapter_map.tscn")
 	else:
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		get_tree().change_scene_to_file("res://scenes/menu.tscn")
