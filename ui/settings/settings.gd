@@ -130,4 +130,4 @@ func _on_reset_pressed() -> void:
 
 func _on_back() -> void:
 	Audio.play_sfx("ui_click", -6.0)
-	SceneManager.change_scene("res://scenes/menu.tscn")
+	SceneManager.change_scene("res://scenes/main_menu.tscn")
