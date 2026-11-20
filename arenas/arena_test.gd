@@ -301,26 +301,34 @@ func _start_countdown() -> void:
 
 	if countdown_label:
 		countdown_label.visible = true
-		countdown_label.add_theme_font_size_override("font_size", 130)
+		countdown_label.add_theme_font_size_override("font_size", 120)
 		countdown_label.add_theme_color_override("font_color", Color(1.0, 0.88, 0.2)) # Emas cerah
 		countdown_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
 		countdown_label.add_theme_constant_override("outline_size", 22)
 
-	countdown_label.text = "3"
-	Audio.play_sfx("countdown", -4.0)
-	await get_tree().create_timer(0.8).timeout
+	var cur_round := p1_wins + p2_wins + 1
+	if p1_wins == WINS_REQUIRED - 1 and p2_wins == WINS_REQUIRED - 1:
+		countdown_label.text = "FINAL ROUND"
+		Audio.play_sfx("final_round", -2.0)
+	elif cur_round == 1:
+		countdown_label.text = "ROUND 1"
+		Audio.play_sfx("round_1", -2.0)
+	elif cur_round == 2:
+		countdown_label.text = "ROUND 2"
+		Audio.play_sfx("round_2", -2.0)
+	else:
+		countdown_label.text = "ROUND %d" % cur_round
+		Audio.play_sfx("round_3", -2.0)
+	await get_tree().create_timer(1.1).timeout
 
-	countdown_label.text = "2"
-	Audio.play_sfx("countdown", -4.0)
-	await get_tree().create_timer(0.8).timeout
-
-	countdown_label.text = "1"
-	Audio.play_sfx("countdown", -4.0)
+	countdown_label.text = "READY"
+	Audio.play_sfx("ready", -2.0)
 	await get_tree().create_timer(0.8).timeout
 
 	countdown_label.add_theme_font_size_override("font_size", 140)
 	countdown_label.add_theme_color_override("font_color", Color(1.0, 0.25, 0.15)) # Oranye kemerahan menyala
 	countdown_label.text = "FIGHT!"
+	Audio.play_sfx("fight", -1.0)
 	Audio.play_sfx("bell", -2.0)
 	await get_tree().create_timer(0.8).timeout
 
@@ -455,6 +463,10 @@ func _start_next_stage() -> void:
 func _show_game_over(p1_won: bool, chapter_complete: bool = false) -> void:
 	match_over = true
 	Engine.time_scale = 1.0
+	if p1_won or chapter_complete:
+		Audio.play_sfx("you_win", -1.0)
+	else:
+		Audio.play_sfx("you_lose", -1.0)
 	if chapter_complete:
 		_story_chapter_done = true
 		var n: int = int(GameSession.chapter_id.trim_prefix("ch"))

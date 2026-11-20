@@ -152,6 +152,8 @@ func _make_card(ch_id: String) -> PanelContainer:
 	play.add_theme_font_size_override("font_size", 22)
 	play.disabled = not open
 	play.pressed.connect(_on_play.bind(ch_id))
+	if open:
+		play.mouse_entered.connect(func(): Audio.play_sfx("ui_hover", -8.0))
 	v.add_child(play)
 	return panel
 

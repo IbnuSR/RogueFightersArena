@@ -39,6 +39,7 @@ var _cells: Dictionary = {}
 
 func _ready() -> void:
 	Audio.play_music("bgm_menu")
+	Audio.play_sfx("choose_your_character", -2.0)
 	_build()
 
 
@@ -289,7 +290,7 @@ func _on_pick(char_id: String) -> void:
 func _on_start() -> void:
 	if _selected == "":
 		return
-	Audio.play_sfx("ui_click", -6.0)
+	Audio.play_sfx("ui_select", -2.0)
 	if _step == 1:
 		GameSession.player_id = _selected
 		GameState.p1_character = _selected

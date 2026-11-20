@@ -54,6 +54,9 @@ func _ready() -> void:
 	btn_settings.pressed.connect(_on_settings)
 	btn_how.pressed.connect(_on_how)
 	btn_quit.pressed.connect(_on_quit)
+	for b in [btn_start, btn_story, btn_settings, btn_how, btn_quit, btn_easy, btn_normal, btn_hard]:
+		if b != null:
+			b.mouse_entered.connect(func(): Audio.play_sfx("ui_hover", -8.0))
 	# Tampilkan progres Story Mode di bawah menu, kalau ada.
 	var pm = get_node_or_null("/root/ProgressManager")
 	if pm != null and pm.completed_chapters.size() > 0:

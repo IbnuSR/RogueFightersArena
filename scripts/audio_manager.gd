@@ -20,15 +20,17 @@ func set_sfx_level(v: float) -> void:
 	sfx_level = clampf(v, 0.0, 1.0)
 
 const SFX_NAMES := [
-	"swing", "hit", "block", "jump", "ko",
-	"bell", "ui_click", "countdown", "round_win",
+	"swing", "swing_heavy", "hit", "hit_heavy", "block", "jump", "land", "ko",
+	"bell", "ui_click", "ui_hover", "ui_select", "countdown", "round_win",
+	"round_1", "round_2", "round_3", "final_round", "ready", "fight",
+	"choose_your_character", "winner", "you_win", "you_lose", "game_over",
 ]
 const MUSIC_NAMES := ["bgm_menu", "bgm_battle"]
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	for i in 8:
+	for i in 12:
 		var p := AudioStreamPlayer.new()
 		add_child(p)
 		_players.append(p)
@@ -41,15 +43,27 @@ func _ready() -> void:
 
 
 func _load_stream(stream_name: String, loop: bool) -> void:
-	var path := "res://assets/audio/%s.wav" % stream_name
-	if not ResourceLoader.exists(path):
+	var extensions := [".ogg", ".wav", ".mp3"]
+	var found_path := ""
+	for ext in extensions:
+		var p := "res://assets/audio/%s%s" % [stream_name, ext]
+		if ResourceLoader.exists(p):
+			found_path = p
+			break
+	if found_path == "":
 		return
-	var stream: AudioStreamWAV = load(path)
-	if loop:
-		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
-		stream.loop_begin = 0
-		# 16-bit mono: jumlah sample = byte data / 2
-		stream.loop_end = int(stream.data.size() / 2)
+	var stream = load(found_path)
+	if stream is AudioStreamWAV:
+		if loop:
+			stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+			stream.loop_begin = 0
+			stream.loop_end = int(stream.data.size() / 2)
+	elif stream is AudioStreamOggVorbis:
+		if loop:
+			stream.loop = true
+	elif stream is AudioStreamMP3:
+		if loop:
+			stream.loop = true
 	_streams[stream_name] = stream
 
 

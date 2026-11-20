@@ -735,7 +735,10 @@ func _physics_process(delta: float) -> void:
 			input_state["throw"] = false
 			_try_throw()
 
+	var was_floor := is_on_floor()
 	move_and_slide()
+	if not was_floor and is_on_floor():
+		Audio.play_sfx("land", -10.0)
 	_check_hits()
 	_update_animation()
 
@@ -837,7 +840,10 @@ func _attack(attack_name: String, from_crouch: bool = false, is_special: bool = 
 		current_damage = int(atk["damage"] * dmg_mult)
 	already_hit.clear()
 	_setup_hitbox(atk)
-	Audio.play_sfx("swing", -4.0)
+	if attack_name == "attack_3" or is_special:
+		Audio.play_sfx("swing_heavy", -2.0)
+	else:
+		Audio.play_sfx("swing", -4.0)
 
 	# Mainkan animasi serangan (nama key = nama animasi)
 	_play_safe(attack_name)
@@ -991,7 +997,7 @@ func _try_throw() -> void:
 		dmg = 14
 		kb = 600.0
 	did_throw.emit()
-	Audio.play_sfx("swing", -4.0)
+	Audio.play_sfx("swing_heavy", -2.0)
 	opponent.take_damage(dmg, self, "throw", true)
 	# Knockdown: terpental lebih jauh & tidak bisa bergerak 0.6 dtk.
 	opponent.set("hitstun_timer", THROW_KNOCKDOWN)
@@ -1060,7 +1066,10 @@ func take_damage(amount: int, attacker: Node2D = null, attack_name: String = "",
 	# Jika tidak block, baru terkena damage normal: hitstun + knockback.
 	health = maxi(health - amount, 0)
 	health_changed.emit(health, max_health)
-	Audio.play_sfx("hit", -2.0)
+	if amount >= 14 or attack_name == "attack_3" or unblockable:
+		Audio.play_sfx("hit_heavy", 0.0)
+	else:
+		Audio.play_sfx("hit", -2.0)
 	got_hit.emit(amount)
 	_gain_meter(METER_GAIN_HURT)
 

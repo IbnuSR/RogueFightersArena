@@ -11,6 +11,7 @@ const SETTINGS := "res://ui/settings/settings.tscn"
 @onready var exit_btn: TextureButton = $Button/exit
 
 func _ready() -> void:
+	Audio.play_music("bgm_menu")
 	exit_btn.visible = not OS.has_feature("web")
 	
 	story_btn.pressed.connect(_on_story_pressed)
@@ -19,28 +20,40 @@ func _ready() -> void:
 	settings_btn.pressed.connect(_on_settings_pressed)
 	exit_btn.pressed.connect(_on_exit_pressed)
 
+	for btn in [story_btn, free_btn, char_btn, settings_btn, exit_btn]:
+		if btn != null:
+			btn.mouse_entered.connect(_on_btn_hover)
+
+func _on_btn_hover() -> void:
+	Audio.play_sfx("ui_hover", -8.0)
+
 func _on_story_pressed() -> void:
+	Audio.play_sfx("ui_click", -4.0)
 	if has_node("/root/GameSession"):
 		GameSession.reset()
 		GameSession.mode = GameSession.Mode.STORY
 	_go(CHAPTER_MAP)
 
 func _on_freebattle_pressed() -> void:
+	Audio.play_sfx("ui_click", -4.0)
 	if has_node("/root/GameSession"):
 		GameSession.reset()
 		GameSession.mode = GameSession.Mode.FREE_FIGHT
 	_go(CHARACTER_SELECT)
 
 func _on_character_pressed() -> void:
+	Audio.play_sfx("ui_click", -4.0)
 	if has_node("/root/GameSession"):
 		GameSession.reset()
 		GameSession.mode = GameSession.Mode.FREE_FIGHT
 	_go(CHARACTER_SELECT)
 
 func _on_settings_pressed() -> void:
+	Audio.play_sfx("ui_click", -4.0)
 	_go(SETTINGS)
 
 func _on_exit_pressed() -> void:
+	Audio.play_sfx("ui_click", -4.0)
 	if has_node("/root/SceneManager"):
 		SceneManager.quit_game()
 	else:
