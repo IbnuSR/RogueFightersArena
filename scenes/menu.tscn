@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bhjiuv1vy64i8"]
 
-[ext_resource type="Script" path="res://scripts/button.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://buy0d1pvpx6sa" path="res://assets/image/main_menu.png" id="1_yqeox"]
+[ext_resource type="Script" uid="uid://cuu6xe160r8a7" path="res://scripts/button.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bgdfrn2ga13gt" path="res://assets/image/storymode.png" id="2_con2f"]
+[ext_resource type="VideoStream" uid="uid://byrdkvq7utaya" path="res://assets/backgrounds/tsk_9a2176f11afde72221c87e869151ff53.ogv" id="2_v86rl"]
 [ext_resource type="Texture2D" uid="uid://bhjrgshynafaj" path="res://assets/image/freebattle.png" id="3_mhnvy"]
 [ext_resource type="Texture2D" uid="uid://cmmnivf3eca" path="res://assets/image/charater.png" id="4_g3eks"]
 [ext_resource type="Texture2D" uid="uid://crafojqn6sovu" path="res://assets/image/settings.png" id="5_13sgg"]
@@ -17,6 +17,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1798830421]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_v86rl")
+speed_scale = 0.5
+autoplay = true
+expand = true
+loop = true
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1522073594]
 layout_mode = 1
 anchors_preset = 15
@@ -26,7 +39,6 @@ offset_left = 1.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_yqeox")
 expand_mode = 1
 
 [node name="Button" type="VBoxContainer" parent="." unique_id=464824045]

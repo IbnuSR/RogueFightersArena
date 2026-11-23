@@ -103,18 +103,18 @@ penyelundup, geng_jalanan, dan akrobat.
   AI 2048x1152 -> upscale 3840x2160) + `assets/ui/thumbs/ch4.png`.
 - **Boss bukan lagi palette-swap.** 4 boss kini punya badan sendiri:
   - Ular Neon, Guru Sunyi, Alaric Voss: gambar AI full-body (pixel-art,
-    green-screen) di-key jadi transparan, lalu 10 animasi per boss
-    dibangun prosedural dari 1 gambar badan itu
-    (`tools/build_boss_strips.py`: bob idle, lunge serang, lompat,
-    rebah mati). Badan 220 px di frame 320x256, sprite_scale 1.091.
+	green-screen) di-key jadi transparan, lalu 10 animasi per boss
+	dibangun prosedural dari 1 gambar badan itu
+	(`tools/build_boss_strips.py`: bob idle, lunge serang, lompat,
+	rebah mati). Badan 220 px di frame 320x256, sprite_scale 1.091.
   - Kapten Brak: idle tetap strip ASLI 10 frame miliknya; 9 animasi lain
-    dibangun prosedural dari frame 0 idle itu (badan 115 px,
-    sprite_scale 1.983, sama seperti idle aslinya).
+	dibangun prosedural dari frame 0 idle itu (badan 115 px,
+	sprite_scale 1.983, sama seperti idle aslinya).
   - Karena geometri tiap boss seragam di semua animasinya, entri boss di
-    `fighters/fighter.gd` TIDAK lagi memakai `anim_fix` (pakai
-    base_scale/base_pos_y). Frame baru: idle 6 (Brak 10), walk 8, run 8,
-    jump 12, attack_1 7, attack_2 5, attack_3 3, shield 2, hurt 2,
-    dead 3 — semua frame_w 320 (idle Brak 256).
+	`fighters/fighter.gd` TIDAK lagi memakai `anim_fix` (pakai
+	base_scale/base_pos_y). Frame baru: idle 6 (Brak 10), walk 8, run 8,
+	jump 12, attack_1 7, attack_2 5, attack_3 3, shield 2, hurt 2,
+	dead 3 — semua frame_w 320 (idle Brak 256).
   - Potret 4 boss di-regenerate dari idle frame 0 aset baru.
 - JUJUR: animasi boss prosedural (badan utuh digeser/diputar) — bukan
   animasi gambar-tangan per frame. Kaki/tangan tidak bergerak sendiri
