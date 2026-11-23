@@ -10,5 +10,6 @@ extends Resource
 @export var id: String = ""
 @export var title: String = ""
 @export var arena_bg: String = ""
+@export var arena_bgm: String = ""
 @export var stages: Array[String] = []
 @export var boss_id: String = ""

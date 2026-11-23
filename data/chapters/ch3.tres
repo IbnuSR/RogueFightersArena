@@ -7,5 +7,6 @@ script = ExtResource("1_dylfl")
 id = "ch3"
 title = "Dojo Bayangan"
 arena_bg = "res://assets/backgrounds/dojo_bayangan.png"
+arena_bgm = "res://assets/audio/Chapter 3 BGM.mp3"
 stages = Array[String](["murid_dojo", "murid_dojo", "murid_dojo"])
 boss_id = "guru_sunyi"

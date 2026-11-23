@@ -25,7 +25,11 @@ const SFX_NAMES := [
 	"round_1", "round_2", "round_3", "final_round", "ready", "fight",
 	"choose_your_character", "winner", "you_win", "you_lose", "game_over",
 ]
-const MUSIC_NAMES := ["bgm_menu", "bgm_battle"]
+const MUSIC_NAMES := [
+	"bgm_menu", "bgm_battle",
+	"Chapter 1 BGM", "Chapter 2 BGM", "Chapter 3 BGM", "Chapter 4 BGM",
+	"BGM 1", "BGM 2", "BGM 3",
+]
 
 
 func _ready() -> void:
@@ -43,13 +47,16 @@ func _ready() -> void:
 
 
 func _load_stream(stream_name: String, loop: bool) -> void:
-	var extensions := [".ogg", ".wav", ".mp3"]
 	var found_path := ""
-	for ext in extensions:
-		var p := "res://assets/audio/%s%s" % [stream_name, ext]
-		if ResourceLoader.exists(p):
-			found_path = p
-			break
+	if stream_name.begins_with("res://") and ResourceLoader.exists(stream_name):
+		found_path = stream_name
+	else:
+		var extensions := ["", ".mp3", ".ogg", ".wav"]
+		for ext in extensions:
+			var p := "res://assets/audio/%s%s" % [stream_name, ext]
+			if ResourceLoader.exists(p):
+				found_path = p
+				break
 	if found_path == "":
 		return
 	var stream = load(found_path)
@@ -69,6 +76,8 @@ func _load_stream(stream_name: String, loop: bool) -> void:
 
 func play_sfx(stream_name: String, volume_db: float = 0.0) -> void:
 	if not _streams.has(stream_name):
+		_load_stream(stream_name, false)
+	if not _streams.has(stream_name):
 		return
 	var vol: float = volume_db + linear_to_db(maxf(sfx_level, 0.001))
 	for p in _players:
@@ -85,12 +94,28 @@ func play_sfx(stream_name: String, volume_db: float = 0.0) -> void:
 
 func play_music(stream_name: String, volume_db: float = -10.0) -> void:
 	if not _streams.has(stream_name):
+		_load_stream(stream_name, true)
+	if not _streams.has(stream_name):
 		return
 	if _music_player.stream == _streams[stream_name] and _music_player.playing:
 		return
 	_music_player.stream = _streams[stream_name]
 	_music_player.volume_db = volume_db + linear_to_db(maxf(music_level, 0.001))
 	_music_player.play()
+
+
+func play_chapter_music(chapter_id: String, volume_db: float = -10.0) -> void:
+	match chapter_id.to_lower():
+		"ch1", "1", "dermaga":
+			play_music("Chapter 1 BGM", volume_db)
+		"ch2", "2", "lorong_neon", "lorong neon":
+			play_music("Chapter 2 BGM", volume_db)
+		"ch3", "3", "dojo_bayangan", "dojo bayangan":
+			play_music("Chapter 3 BGM", volume_db)
+		"ch4", "4", "menara_voss", "menara voss":
+			play_music("Chapter 4 BGM", volume_db)
+		_:
+			play_music("bgm_battle", volume_db)
 
 
 func stop_music() -> void:

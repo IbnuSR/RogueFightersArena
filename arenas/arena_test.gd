@@ -188,9 +188,24 @@ func _ready() -> void:
 	$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnRematch.pressed.connect(_on_restart)
 	$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnGoMenu.pressed.connect(_on_quit_to_menu)
 
-	Audio.play_music("bgm_battle")
+	_play_battle_music()
 	_set_background()
 	_start_countdown()
+
+
+func _play_battle_music() -> void:
+	if _is_story():
+		var chapter = _story_chapter()
+		if chapter != null and "arena_bgm" in chapter and chapter.arena_bgm != "":
+			Audio.play_music(chapter.arena_bgm)
+			return
+		if GameSession.chapter_id != "":
+			Audio.play_chapter_music(GameSession.chapter_id)
+			return
+	elif GameSession.arena_id != "":
+		Audio.play_chapter_music(GameSession.arena_id)
+		return
+	Audio.play_music("bgm_battle")
 
 
 func _apply_stage_scaling() -> void:
