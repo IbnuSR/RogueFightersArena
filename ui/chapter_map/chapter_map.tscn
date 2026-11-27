@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://brvb7bhh84yxb"]
 
-[ext_resource type="Script" path="res://ui/chapter_map/chapter_map.gd" id="1"]
+[ext_resource type="Script" uid="uid://bq11m15h1hc2v" path="res://ui/chapter_map/chapter_map.gd" id="1"]
 
-[node name="ChapterMap" type="Control"]
+[node name="ChapterMap" type="Control" unique_id=1031726511]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1")

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c74bxuh8yqvs8"]
+
+[ext_resource type="Script" uid="uid://dyc8nkbo5vdwp" path="res://scripts/character/character_card.gd" id="1_edhrw"]
+[ext_resource type="Texture2D" uid="uid://b6od8dq1c16xs" path="res://assets/image/pilih_karakter/card.png" id="1_we3fo"]
+[ext_resource type="Texture2D" uid="uid://coxa8ha12gif5" path="res://assets/image/pilih_karakter/pilih.png" id="3_uoela"]
+[ext_resource type="Texture2D" uid="uid://b6w08xh7t1uv0" path="res://assets/image/pilih_karakter/terkunci.png" id="4_j4w5d"]
+
+[node name="CharacterCard" type="Control" unique_id=1024609748]
+custom_minimum_size = Vector2(170, 255)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 255.0
+script = ExtResource("1_edhrw")
+
+[node name="Background" type="TextureRect" parent="." unique_id=298741684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_we3fo")
+expand_mode = 1
+
+[node name="Portrait" type="TextureRect" parent="." unique_id=438543663]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NameLabel" type="Label" parent="." unique_id=771386503]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 183.0
+offset_right = 151.0
+offset_bottom = 206.0
+theme_override_colors/font_color = Color(1, 1, 0.14117648, 1)
+theme_override_font_sizes/font_size = 14
+text = "SAMURAI"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonPilih" type="TextureButton" parent="." unique_id=1040910345]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 214.0
+offset_right = 146.0
+offset_bottom = 239.0
+texture_normal = ExtResource("3_uoela")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ButtonTerkunci" type="TextureButton" parent="." unique_id=388457158]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 215.0
+offset_right = 145.0
+offset_bottom = 240.0
+texture_normal = ExtResource("4_j4w5d")
+ignore_texture_size = true
+stretch_mode = 0

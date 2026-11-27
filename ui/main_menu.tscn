@@ -76,5 +76,4 @@ text = "Keluar"
 [node name="ToastLabel" type="Label" parent="Center/Content" unique_id=1415092799]
 unique_name_in_owner = true
 layout_mode = 2
-text = ""
 horizontal_alignment = 1

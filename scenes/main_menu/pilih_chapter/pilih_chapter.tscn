@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://cqnbgk3wabj8m"]
+
+[ext_resource type="Script" uid="uid://hhjlh6ytrro6" path="res://scripts/main_menu/pilih_chapter/pilih_chapter.gd" id="1_pw3s7"]
+[ext_resource type="Texture2D" uid="uid://cdyyw01080bo1" path="res://assets/chapter/buka/chapter1.png" id="1_rgj7n"]
+[ext_resource type="Texture2D" uid="uid://bmehrmh0cmj4t" path="res://assets/chapter/buka/chapter2.png" id="2_dq0rq"]
+[ext_resource type="VideoStream" uid="uid://bv7guq0o31a1" path="res://assets/backgrounds/video/chapter.ogv" id="2_pw3s7"]
+[ext_resource type="Texture2D" uid="uid://dnlr3tf774jjo" path="res://assets/chapter/buka/chapter3.png" id="3_387qr"]
+[ext_resource type="Texture2D" uid="uid://hql6u31yrk4i" path="res://assets/chapter/buka/chapter4.png" id="4_pw3s7"]
+[ext_resource type="Texture2D" uid="uid://c21pjydx7wtac" path="res://assets/chapter/tombol kembali.png" id="5_dq0rq"]
+
+[node name="PilihChapter" type="Control" unique_id=2040667451]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pw3s7")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=2045315456]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+stream = ExtResource("2_pw3s7")
+autoplay = true
+loop = true
+
+[node name="Chapter1" type="TextureButton" parent="." unique_id=679286149]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 205.0
+offset_right = 330.0
+offset_bottom = 505.0
+texture_normal = ExtResource("1_rgj7n")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Chapter2" type="TextureButton" parent="." unique_id=699999246]
+layout_mode = 0
+offset_left = 359.0
+offset_top = 193.0
+offset_right = 629.0
+offset_bottom = 493.0
+texture_normal = ExtResource("2_dq0rq")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Chapter3" type="TextureButton" parent="." unique_id=701895104]
+layout_mode = 0
+offset_left = 665.0
+offset_top = 187.0
+offset_right = 935.0
+offset_bottom = 487.0
+texture_normal = ExtResource("3_387qr")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Chapter4" type="TextureButton" parent="." unique_id=126192687]
+layout_mode = 0
+offset_left = 966.0
+offset_top = 185.0
+offset_right = 1236.0
+offset_bottom = 485.0
+texture_normal = ExtResource("4_pw3s7")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Kembali" type="TextureButton" parent="." unique_id=536459985]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 455.0
+offset_right = 383.0
+offset_bottom = 855.0
+texture_normal = ExtResource("5_dq0rq")
+ignore_texture_size = true
+stretch_mode = 0

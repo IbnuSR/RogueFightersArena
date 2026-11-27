@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterData" format=3]
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://ctutunfkdykfx"]
 
-[ext_resource type="Script" path="res://data/character_data.gd" id="1_rje12"]
+[ext_resource type="Script" uid="uid://50fk3t8nvvsm" path="res://data/character_data.gd" id="1_rje12"]
 
 [resource]
 script = ExtResource("1_rje12")
@@ -9,5 +9,6 @@ display_name = "Samurai"
 country = "Jepang"
 style = "Kenjutsu"
 bio = "Seorang ronin tanpa tuan yang datang ke Karang Hitam demi menguji pedangnya di turnamen bawah tanah; gerakannya seimbang tanpa kelemahan mencolok, mengandalkan dasar yang kokoh dan timing yang bersih."
-trait_desc = "Seimbang: tanpa trait khusus, andalkan dasar yang kokoh."
+hp = 120
+trait_desc = "Seimbang: Mengandalkan teknik dasar pedang dengan kemampuan menyerang dan bertahan yang stabil."
 folder = "res://assets/fighters/fighter_samurai"

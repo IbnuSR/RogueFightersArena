@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="CharacterData" format=3]
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://6ln6beicvefe"]
 
-[ext_resource type="Script" path="res://data/character_data.gd" id="1_4s878"]
+[ext_resource type="Script" uid="uid://50fk3t8nvvsm" path="res://data/character_data.gd" id="1_4s878"]
 
 [resource]
 script = ExtResource("1_4s878")
@@ -9,7 +9,7 @@ display_name = "Kapten Brak"
 country = "Karang Hitam"
 style = "Seruduk & banting"
 bio = "Raksasa Dermaga yang memimpin pelabuhan dengan tangan besi; ia menyeruduk lawan seperti banteng sebelum membantingnya ke tanah."
-hp = 160
+hp = 120
 dmg = 1.2
 spd = 0.85
 trait_id = "boss_charge"

@@ -11,17 +11,17 @@ config_version=5
 [application]
 
 config/name="RogueFightersArena"
-run/main_scene="res://scenes/splashscreen.tscn"
+run/main_scene="uid://cqnbgk3wabj8m"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameState="*res://scripts/game_state.gd"
-Audio="*res://scripts/audio_manager.gd"
+GameState="*res://scripts/manager/game_state.gd"
+Audio="*res://scripts/manager/audio_manager.gd"
 SceneManager="*uid://to0r2y2r38nk"
 GameSession="*uid://b1ymi0rqs4tfb"
-ProgressManager="*res://scripts/progress_manager.gd"
+ProgressManager="*uid://b7lqqoxyulp11"
 
 [display]
 
