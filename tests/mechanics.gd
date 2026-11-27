@@ -294,7 +294,7 @@ func _run() -> void:
 		"penyelundup": {"hp": 85, "scale": 1.263, "idle": 6, "walk": 12, "a1": 11, "dead": 4},
 		"geng_jalanan": {"hp": 95, "scale": 1.206, "idle": 6, "walk": 12, "a1": 11, "dead": 4},
 		"akrobat": {"hp": 85, "scale": 1.218, "idle": 6, "walk": 12, "a1": 11, "dead": 4},
-		"murid_dojo": {"hp": 100, "scale": 1.124, "idle": 6, "walk": 12, "a1": 11, "dead": 4},
+		"murid_dojo": {"hp": 100, "scale": 1.124, "idle": 6, "walk": 5, "a1": 6, "dead": 4},
 		"pengawal_elit": {"hp": 115, "scale": 2.909, "idle": 6, "walk": 8, "a1": 7, "dead": 3},
 		"kapten_brak": {"hp": 160, "scale": 1.983, "idle": 10, "walk": 8, "a1": 7, "dead": 3},
 		"ular_neon": {"hp": 130, "scale": 1.091, "idle": 6, "walk": 8, "a1": 7, "dead": 3},

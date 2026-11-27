@@ -13,6 +13,11 @@ const CHARACTER_CARD_SCENE := preload(
     "res://scenes/character_select/character_card.tscn"
 )
 
+const BUTTON_BACK := "res://assets/ui/buttons/tombol_kembali.png"
+const BUTTON_CONTINUE := "res://assets/ui/buttons/tombol_lanjut_pilih_lawan.png"
+const BUTTON_START := "res://assets/ui/buttons/tombol_mulai.png"
+const BUTTON_FIGHT := "res://assets/ui/buttons/tombol_mulai_bertarung.png"
+
 # =========================================================
 # SEMUA KARAKTER
 # =========================================================
@@ -63,7 +68,7 @@ var _hp_value: Label
 var _dmg_value: Label
 var _spd_value: Label
 
-var _start_btn: Button
+var _start_btn: TextureButton
 
 var _cells: Dictionary = {}
 
@@ -206,7 +211,7 @@ func _build() -> void:
 
 	var right := VBoxContainer.new()
 
-	right.custom_minimum_size = Vector2(380, 0)
+	right.custom_minimum_size = Vector2(440, 0)
 	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
 
 	right.add_theme_constant_override("separation", 8)
@@ -229,7 +234,7 @@ func _build() -> void:
 	var card_root := Control.new()
 
 	card_root.custom_minimum_size = Vector2(380, 570)
-	card_root.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	card_root.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 
 	info_scroll.add_child(card_root)
 
@@ -254,8 +259,8 @@ func _build() -> void:
 
 	_info_name = Label.new()
 
-	_info_name.position = Vector2(48, 26)
-	_info_name.size = Vector2(310, 55)
+	_info_name.position = Vector2(25, 26)
+	_info_name.size = Vector2(330, 55)
 
 	_info_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_info_name.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -276,14 +281,21 @@ func _build() -> void:
 
 	_info_style = Label.new()
 
-	_info_style.position = Vector2(75, 80)
-	_info_style.size = Vector2(230, 28)
+	_info_style.position = Vector2(20, 88)
+	_info_style.size = Vector2(340, 32)
 
 	_info_style.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_info_style.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_info_style.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_info_style.clip_text = true
+	_info_style.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 
-	_info_style.add_theme_font_size_override("font_size", 12)
-	_info_style.add_theme_color_override("font_color", Color.WHITE)
+	_info_style.add_theme_font_size_override("font_size", 10)
+	_info_style.add_theme_color_override("font_color", Color(0.95, 0.95, 0.95, 1.0))
+	_info_style.add_theme_color_override("font_shadow_color", Color.BLACK)
+	_info_style.add_theme_constant_override("shadow_offset_x", 1)
+	_info_style.add_theme_constant_override("shadow_offset_y", 1)
+	_info_style.z_index = 2
 
 	card_root.add_child(_info_style)
 
@@ -305,8 +317,8 @@ func _build() -> void:
 
 	_info_bio = Label.new()
 
-	_info_bio.position = Vector2(45, 291)
-	_info_bio.size = Vector2(290, 115)
+	_info_bio.position = Vector2(35, 291)
+	_info_bio.size = Vector2(310, 115)
 
 	_info_bio.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 
@@ -315,7 +327,8 @@ func _build() -> void:
 
 	_info_bio.clip_text = true
 
-	_info_bio.add_theme_font_size_override("font_size", 12)
+	_info_bio.add_theme_font_size_override("font_size", 11)
+	_info_bio.add_theme_constant_override("line_spacing", 2)
 	_info_bio.add_theme_color_override("font_color", Color.WHITE)
 
 	card_root.add_child(_info_bio)
@@ -334,40 +347,37 @@ func _build() -> void:
 
 	var btn_row := HBoxContainer.new()
 
-	btn_row.add_theme_constant_override("separation", 12)
+	btn_row.add_theme_constant_override("separation", 8)
 	btn_row.alignment = BoxContainer.ALIGNMENT_CENTER
 
 	right.add_child(btn_row)
 
 	# TOMBOL KEMBALI
 
-	var back := Button.new()
-
-	back.text = "KEMBALI"
-	back.custom_minimum_size = Vector2(150, 48)
-
-	back.add_theme_font_size_override("font_size", 18)
-
+	var back := _make_image_button(BUTTON_BACK, Vector2(155, 82))
 	back.pressed.connect(_on_back)
-
 	btn_row.add_child(back)
 
-	# TOMBOL MULAI
-
-	_start_btn = Button.new()
-
-	_start_btn.text = "MULAI"
-	_start_btn.custom_minimum_size = Vector2(190, 48)
-
-	_start_btn.add_theme_font_size_override("font_size", 22)
-
+	# TOMBOL UTAMA: gambarnya mengikuti tahap dan mode.
+	_start_btn = _make_image_button(BUTTON_START, Vector2(265, 82))
 	_start_btn.disabled = true
-
 	_start_btn.pressed.connect(_on_start)
-
 	btn_row.add_child(_start_btn)
 
 	_rebuild_grid()
+
+
+func _make_image_button(path: String, minimum_size: Vector2) -> TextureButton:
+	var button := TextureButton.new()
+	button.custom_minimum_size = minimum_size
+	button.ignore_texture_size = true
+	button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	button.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	button.texture_normal = load(path)
+	button.tooltip_text = ""
+	return button
 
 
 # =========================================================
@@ -384,8 +394,8 @@ func _stat_bar(
 
 	stat_label.text = label
 
-	stat_label.position = Vector2(65, y_position - 3)
-	stat_label.size = Vector2(50, 20)
+	stat_label.position = Vector2(45, y_position - 3)
+	stat_label.size = Vector2(60, 20)
 
 	stat_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	stat_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -403,7 +413,7 @@ func _stat_bar(
 
 	var fill := Panel.new()
 
-	fill.position = Vector2(135, y_position + 3)
+	fill.position = Vector2(125, y_position + 3)
 	fill.size = Vector2(0, 16)
 
 	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -471,7 +481,7 @@ func _set_stat_value(
 		1.0
 	)
 
-	bar.size.x = 300.0 * percentage
+	bar.size.x = 220.0 * percentage
 
 	value_label.text = str(int(value))
 
@@ -553,15 +563,13 @@ func _rebuild_grid() -> void:
 
 	if _step == 1:
 
-		_start_btn.text = (
-            "MULAI"
-			if GameSession.mode == GameSession.Mode.STORY
-			else "LANJUT: PILIH LAWAN"
+		_start_btn.texture_normal = load(
+			BUTTON_START if GameSession.mode == GameSession.Mode.STORY else BUTTON_CONTINUE
 		)
 
 	else:
 
-		_start_btn.text = "MULAI BERTARUNG"
+		_start_btn.texture_normal = load(BUTTON_FIGHT)
 
 	var pm = get_node_or_null("/root/ProgressManager")
 
@@ -694,6 +702,12 @@ func _on_pick(char_id: String) -> void:
 		String(cd.get("style")),
 		String(cd.get("country"))
 	]
+	var style_font_size := 10
+	if _info_style.text.length() > 30:
+		style_font_size = 9
+	elif _info_style.text.length() > 24:
+		style_font_size = 10
+	_info_style.add_theme_font_size_override("font_size", style_font_size)
 
 	# BIO
 
@@ -810,8 +824,13 @@ func _on_back() -> void:
 	if _step == 2:
 
 		_step = 1
+		_selected = GameSession.player_id
+		GameSession.opponent_id = ""
+		GameState.p2_character = "shinobi"
 
 		_rebuild_grid()
+		if _selected != "" and _cells.has(_selected):
+			_on_pick(_selected)
 
 		return
 
@@ -826,5 +845,5 @@ func _on_back() -> void:
 	else:
 
 		SceneManager.change_scene(
-            "res://scenes/menu.tscn"
+            "res://scenes/main_menu/menu.tscn"
 		)

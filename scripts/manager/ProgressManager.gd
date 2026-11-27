@@ -403,14 +403,16 @@ func load_progress() -> void:
 
 	if saved_chars is Array:
 
-		# Kosongkan daftar default sebelum memuat data
-		unlocked_chars.clear()
-
-		for char_id in saved_chars:
-
-			if char_id is String:
-				if char_id != "" and char_id not in unlocked_chars:
-					unlocked_chars.append(char_id)
+		# Progres baru hanya membuka Samurai. Save lama yang belum
+		# menyelesaikan chapter tidak boleh membuka karakter tambahan.
+		if completed_chapters.is_empty():
+			unlocked_chars = START_UNLOCKED.duplicate()
+		else:
+			unlocked_chars.clear()
+			for char_id in saved_chars:
+				if char_id is String:
+					if char_id != "" and char_id not in unlocked_chars:
+						unlocked_chars.append(char_id)
 
 
 	# ----------------------------------

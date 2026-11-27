@@ -3,14 +3,14 @@ extends Node
 ## ke user://progress.save (JSON). Dibaca menu & arena.
 ## - completed_chapters: ["ch1", ...] — chapter 1 selalu terbuka,
 ##   chapter N terbuka kalau chapter N-1 sudah selesai.
-## - unlocked_chars: karakter yang bisa dipakai. Awal: samurai, arga, marco.
-##   Mengalahkan musuh/boss di Story Mode membuka karakter itu.
+## - unlocked_chars: karakter yang bisa dipakai. Awal hanya samurai.
+##   Mengalahkan musuh/boss di Story Mode membuka karakter itu satu per satu.
 ## - music_volume / sfx_volume: 0.0..1.0, diterapkan ke Audio saat load.
 ## - highest_chapter: jumlah chapter tertinggi yang sudah selesai (untuk
 ##   tombol "Lanjutkan" di menu lama).
 
 const SAVE_PATH := "user://progress.save"
-const START_UNLOCKED: Array[String] = ["samurai", "arga", "marco"]
+const START_UNLOCKED: Array[String] = ["samurai"]
 const CHAPTER_IDS: Array[String] = ["ch1", "ch2", "ch3", "ch4"]
 
 var completed_chapters: Array = []
@@ -94,6 +94,10 @@ func load_progress() -> void:
 		completed_chapters = parsed["completed_chapters"]
 	if parsed.get("unlocked_chars") is Array and not parsed["unlocked_chars"].is_empty():
 		unlocked_chars = parsed["unlocked_chars"]
+	# Save lama dapat berisi unlock default versi sebelumnya. Untuk progres baru,
+	# Story Mode selalu dimulai hanya dengan Samurai.
+	if completed_chapters.is_empty():
+		unlocked_chars = ["samurai"]
 	highest_chapter = int(parsed.get("highest_chapter", 0))
 	music_volume = clampf(float(parsed.get("music_volume", 0.8)), 0.0, 1.0)
 	sfx_volume = clampf(float(parsed.get("sfx_volume", 0.8)), 0.0, 1.0)

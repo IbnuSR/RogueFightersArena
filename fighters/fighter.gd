@@ -321,25 +321,25 @@ const CHARACTERS := {
 		},
 	},
 	"murid_dojo": {
-		# Badan asli AI (bukan palette swap): 10 animasi prosedural dari
-		# gambar badan unik (tools/build_enemy_strips_fine.py). Badan 220 px,
-		# scale 240/220 = 1.091, kaki y=256, tanpa anim_fix.
+		# Desain baru sprite sheet (256x256 uniform): 10 animasi dari
+		# aset asli AI hand-drawn. Badan 206 px, scale 1.124 (tinggi 231.5 px),
+		# kaki y=256 seragam tanpa anim_fix.
 		"folder": "res://assets/fighters/fighter_murid",
 		"frame_h": 256,
-		"sprite_scale": 1.091,
+		"sprite_scale": 1.124,
 		"feet_y": 256,
 		"stats": {"hp": 100, "dmg": 1.0, "spd": 1.0},
 		"frames": {
-			"idle": [8, 320],
-			"walk": [12, 320],
-			"run": [12, 320],
-			"jump": [16, 320],
-			"attack_1": [10, 320],
-			"attack_2": [8, 320],
-			"attack_3": [6, 320],
-			"shield": [4, 320],
-			"hurt": [4, 320],
-			"dead": [5, 320],
+			"idle": [6, 256],
+			"walk": [5, 256],
+			"run": [7, 256],
+			"jump": [8, 256],
+			"attack_1": [6, 256],
+			"attack_2": [5, 256],
+			"attack_3": [7, 256],
+			"shield": [4, 256],
+			"hurt": [4, 256],
+			"dead": [4, 256],
 		},
 	},
 	"pengawal_elit": {
