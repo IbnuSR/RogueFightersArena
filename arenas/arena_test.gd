@@ -82,8 +82,8 @@ func _story_is_boss_stage() -> bool:
 
 
 func _story_wins_required() -> int:
-	# Story Mode: musuh biasa 1 ronde, boss 1 pertarungan (2 fase).
-	return 1 if _is_story() else WINS_REQUIRED
+	# Setiap chapter adalah satu pertandingan best-of-3.
+	return WINS_REQUIRED
 
 
 func _apply_boss_ai() -> void:
@@ -163,11 +163,7 @@ func _ready() -> void:
 			add_child(tc)
 
 	if _is_story():
-		# Story Mode 1 ronde: kotak kemenangan Best-of-3 disembunyikan,
-		# diganti label chapter & stage.
-		for box in [p1_win_1, p1_win_2, p2_win_1, p2_win_2]:
-			if box:
-				box.visible = false
+		# Story Mode tetap menggunakan dua kotak kemenangan untuk best-of-3.
 		_stage_label = Label.new()
 		_stage_label.position = Vector2(490, 108)
 		_stage_label.size = Vector2(300, 30)
@@ -187,6 +183,14 @@ func _ready() -> void:
 	$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnMenu.pressed.connect(_on_quit_to_menu)
 	$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnRematch.pressed.connect(_on_restart)
 	$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnGoMenu.pressed.connect(_on_quit_to_menu)
+	for button in [
+		$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnResume,
+		$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnRestart,
+		$OverlayLayer/PauseMenu/Center/Panel/VBox/BtnMenu,
+		$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnRematch,
+		$OverlayLayer/GameOverMenu/Center/Panel/VBox/BtnGoMenu
+	]:
+		UIButtonEffects.apply(button)
 
 	_play_battle_music()
 	_set_background()
@@ -241,7 +245,7 @@ func _update_stage_label() -> void:
 	var n: int = int(GameSession.chapter_id.trim_prefix("ch"))
 	var stage_no: int = GameSession.stage_index + 1
 	var boss: String = " · BOSS" if _story_is_boss_stage() else ""
-	_stage_label.text = "CHAPTER %d · STAGE %d/4%s" % [n, stage_no, boss]
+	_stage_label.text = "CHAPTER %d · MATCH 1/1%s" % [n, boss]
 
 
 func _process(delta: float) -> void:
@@ -421,10 +425,12 @@ func _resolve_round(p1_won: bool, reason: String) -> void:
 	countdown_label.visible = false
 
 	if _is_story():
-		if p1_won:
+		if p1_wins >= _story_wins_required():
 			_story_advance()
-		else:
+		elif p2_wins >= _story_wins_required():
 			_show_game_over(false)
+		else:
+			_start_next_round()
 		return
 
 	if p1_wins >= WINS_REQUIRED:
@@ -436,26 +442,17 @@ func _resolve_round(p1_won: bool, reason: String) -> void:
 
 
 func _story_advance() -> void:
-	# Buka kunci karakter yang baru dikalahkan (bisa dipakai di Free Fight).
 	var pm = get_node_or_null("/root/ProgressManager")
+	var chapter_number := int(GameSession.chapter_id.trim_prefix("ch"))
+	var stage_number := GameSession.stage_index + 1
+	# Chapter baru terbuka setelah seluruh 4 stage chapter dimenangkan.
+	var chapter_complete := stage_number >= 4
 	if pm != null:
+		pm.complete_stage(chapter_number, stage_number)
+		# Lawan yang dikalahkan langsung terbuka sebagai karakter playable.
+		# Unlock chapter tetap menunggu Stage 4 melalui complete_stage().
 		pm.unlock_char(GameState.p2_character)
-	if _story_is_boss_stage():
-		# Boss kalah = chapter selesai, chapter berikutnya terbuka.
-		if pm != null:
-			pm.complete_chapter(GameSession.chapter_id)
-		_show_game_over(true, true)
-		return
-	GameSession.stage_index += 1
-	_update_stage_label()
-	countdown_label.visible = true
-	countdown_label.add_theme_font_size_override("font_size", 80)
-	countdown_label.add_theme_color_override("font_color", Color.GREEN)
-	countdown_label.text = "STAGE SELESAI!"
-	Audio.play_sfx("round_win", -4.0)
-	await get_tree().create_timer(2.0).timeout
-	countdown_label.visible = false
-	_start_next_stage()
+	_show_game_over(true, chapter_complete)
 
 
 func _start_next_stage() -> void:
@@ -485,11 +482,22 @@ func _show_game_over(p1_won: bool, chapter_complete: bool = false) -> void:
 	if chapter_complete:
 		_story_chapter_done = true
 		var n: int = int(GameSession.chapter_id.trim_prefix("ch"))
-		winner_label.text = "CHAPTER %d SELESAI!" % n
+		var defeated_name := GameState.p2_character.to_upper()
+		var character_path := "res://data/characters/%s.tres" % GameState.p2_character
+		if ResourceLoader.exists(character_path):
+			var character_data = load(character_path)
+			if character_data != null and character_data.get("display_name") != null:
+				defeated_name = str(character_data.get("display_name"))
+		winner_label.text = "KARAKTER BARU TERBUKA!\n%s\n\nCHAPTER %d SELESAI!" % [defeated_name, n]
 		winner_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.2))
 		btn_go_menu.text = "PETA CHAPTER (M)"
 	else:
-		winner_label.text = GameState.winner_text(p1_won)
+		if _is_story() and p1_won:
+			winner_label.text = "STAGE %d SELESAI!" % (GameSession.stage_index + 1)
+			btn_go_menu.text = "PILIH STAGE"
+		else:
+			winner_label.text = GameState.winner_text(p1_won)
+			btn_go_menu.text = "MENU"
 		winner_label.add_theme_color_override(
 			"font_color", Color.GREEN if p1_won else Color.RED)
 	gameover_menu.visible = true
@@ -592,7 +600,10 @@ func _on_quit_to_menu() -> void:
 	is_paused = false
 	get_tree().paused = false
 	Engine.time_scale = 1.0
-	if _story_chapter_done:
-		get_tree().change_scene_to_file("res://ui/chapter_map/chapter_map.tscn")
+	if _is_story():
+		if _story_chapter_done:
+			get_tree().change_scene_to_file("res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn")
+		else:
+			get_tree().change_scene_to_file("res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn")
 	else:
 		get_tree().change_scene_to_file("res://scenes/main_menu/menu.tscn")

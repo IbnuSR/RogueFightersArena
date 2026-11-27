@@ -21,11 +21,8 @@ func _ready() -> void:
 	exit_btn.pressed.connect(_on_exit_pressed)
 
 	for btn in [story_btn, free_btn, char_btn, settings_btn, exit_btn]:
-		if btn != null:
-			btn.mouse_entered.connect(_on_btn_hover)
+		UIButtonEffects.apply(btn)
 
-func _on_btn_hover() -> void:
-	Audio.play_sfx("ui_hover", -8.0)
 
 func _on_story_pressed() -> void:
 	Audio.play_sfx("ui_click", -4.0)

@@ -127,7 +127,7 @@ func _make_card(ch_id: String) -> PanelContainer:
 
 	var boss_id: String = String(chapter.get("boss_id")) if chapter != null else ""
 	var l_boss := Label.new()
-	l_boss.text = "Boss: " + _char_name(boss_id).to_upper()
+	l_boss.text = ("Boss: " + _char_name(boss_id).to_upper()) if boss_id != "" else "Pertandingan: best of 3"
 	l_boss.add_theme_font_size_override("font_size", 19)
 	l_boss.add_theme_color_override("font_color", Color(1.0, 0.45, 0.4))
 	v.add_child(l_boss)
@@ -137,7 +137,7 @@ func _make_card(ch_id: String) -> PanelContainer:
 		status.text = "SELESAI — bisa diulang"
 		status.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5))
 	elif open:
-		status.text = "TERBUKA — 4 stage (3 musuh + boss)"
+		status.text = "TERBUKA — 1 pertandingan · best of 3"
 		status.add_theme_color_override("font_color", Color(0.5, 1.0, 0.5))
 	else:
 		status.text = "TERKUNCI — selesaikan Chapter %d dulu" % (n - 1)

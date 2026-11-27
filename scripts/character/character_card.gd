@@ -20,6 +20,8 @@ func _ready() -> void:
 
 	if not button_pilih.pressed.is_connected(_on_select):
 		button_pilih.pressed.connect(_on_select)
+	UIButtonEffects.apply(button_pilih)
+	UIButtonEffects.apply(button_terkunci)
 
 	# Pengaturan gambar
 	portrait.set_anchors_preset(Control.PRESET_TOP_LEFT)

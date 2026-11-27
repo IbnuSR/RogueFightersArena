@@ -839,7 +839,7 @@ func _on_back() -> void:
 	if GameSession.mode == GameSession.Mode.STORY:
 
 		SceneManager.change_scene(
-            "res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn"
+			"res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn"
 		)
 
 	else:

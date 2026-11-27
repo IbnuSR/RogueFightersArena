@@ -8,5 +8,5 @@ id = "ch1"
 title = "Dermaga"
 arena_bg = "res://assets/backgrounds/dermaga.png"
 arena_bgm = "res://assets/audio/Chapter 1 BGM.mp3"
-stages = Array[String](["buruh_bayaran", "penyelundup", "buruh_bayaran"])
+stages = Array[String](["shinobi", "arga", "marco"])
 boss_id = "kapten_brak"

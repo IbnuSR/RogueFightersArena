@@ -104,8 +104,8 @@ func is_chapter_unlocked(chapter: Variant) -> bool:
 		return true
 
 	# Chapter berikutnya terbuka jika
-	# seluruh stage chapter sebelumnya selesai
-	return is_chapter_completed(nomor - 1)
+	# stage boss (stage 4) chapter sebelumnya sudah selesai
+	return is_stage_completed(nomor - 1, 4)
 
 
 # ==================================
@@ -403,16 +403,13 @@ func load_progress() -> void:
 
 	if saved_chars is Array:
 
-		# Progres baru hanya membuka Samurai. Save lama yang belum
-		# menyelesaikan chapter tidak boleh membuka karakter tambahan.
-		if completed_chapters.is_empty():
-			unlocked_chars = START_UNLOCKED.duplicate()
-		else:
-			unlocked_chars.clear()
-			for char_id in saved_chars:
-				if char_id is String:
-					if char_id != "" and char_id not in unlocked_chars:
-						unlocked_chars.append(char_id)
+		# Pertahankan semua karakter yang sudah dibuka, termasuk karakter
+		# yang dikalahkan pada stage awal sebelum chapter selesai.
+		unlocked_chars = START_UNLOCKED.duplicate()
+		for char_id in saved_chars:
+			if char_id is String:
+				if char_id != "" and char_id not in unlocked_chars:
+					unlocked_chars.append(char_id)
 
 
 	# ----------------------------------

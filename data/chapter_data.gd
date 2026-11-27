@@ -1,8 +1,8 @@
 class_name ChapterData
 extends Resource
 
-## Data satu chapter Story Mode (GDD v2.0 §4): 3 duel musuh biasa
-## (stages) lalu 1 duel boss. Dipakai GameManager (bukan fighter.gd).
+## Data satu chapter Story Mode: satu pertandingan per chapter.
+## Chapter 4 memakai boss_id, chapter lain memakai satu item di stages.
 ## File: data/chapters/<id>.tres (ch1 Dermaga, ch2 Lorong Neon,
 ## ch3 Dojo Bayangan). arena_bg kosong = background chapter belum ada
 ## di assets (subagent arena yang mengisi saat asetnya tersedia).

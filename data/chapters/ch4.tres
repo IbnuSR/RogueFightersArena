@@ -8,5 +8,5 @@ id = "ch4"
 title = "Menara Voss"
 arena_bg = "res://assets/backgrounds/menara_voss.png"
 arena_bgm = "res://assets/audio/Chapter 4 BGM.mp3"
-stages = Array[String](["pengawal_elit", "pengawal_elit", "pengawal_elit"])
+stages = Array[String](["valeria", "anika", "buruh_bayaran"])
 boss_id = "alaric_voss"

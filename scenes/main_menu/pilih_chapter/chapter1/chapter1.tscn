@@ -4,9 +4,16 @@
 [ext_resource type="Script" uid="uid://di3sy556fs2bx" path="res://scripts/main_menu/stage/chapter_1.gd" id="1_d4xrj"]
 [ext_resource type="Texture2D" uid="uid://x2nem6otptkv" path="res://assets/image/chapter1/stage 1 dermaga utama.png" id="2_6j7tf"]
 [ext_resource type="Texture2D" uid="uid://dgeb22osv42ix" path="res://assets/image/chapter1/stage 2 pelabuhan tua.png" id="3_0idf7"]
-[ext_resource type="Texture2D" uid="uid://cd7lkbhcvqi8k" path="res://assets/image/chapter1/stage 3 kapal perang.png" id="4_fxkgh"]
-[ext_resource type="Texture2D" uid="uid://cyc4day0uvmx4" path="res://assets/image/chapter1/stage 4 gudang laut.png" id="5_d4xrj"]
+[ext_resource type="Texture2D" path="res://assets/image/chapter1/stage 2 pelabuhan tua buka.png" id="3_open"]
+[ext_resource type="Texture2D" uid="cd7lkbhcvqi8k" path="res://assets/image/chapter1/stage 3 kapal perang.png" id="4_fxkgh"]
+[ext_resource type="Texture2D" path="res://assets/image/chapter1/stage 3 kapal perang buka.png" id="4_open"]
+[ext_resource type="Texture2D" uid="cyc4day0uvmx4" path="res://assets/image/chapter1/stage 4 gudang laut.png" id="5_d4xrj"]
+[ext_resource type="Texture2D" path="res://assets/image/chapter1/stage 4 gudang laut buka.png" id="5_open"]
 [ext_resource type="Texture2D" uid="uid://c21pjydx7wtac" path="res://assets/chapter/tombol kembali.png" id="6_fxkgh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_back_button"]
+atlas = ExtResource("6_fxkgh")
+region = Rect2(86, 193, 332, 89)
 
 [node name="Chapter1" type="Control" unique_id=1135583915]
 layout_mode = 3
@@ -18,59 +25,62 @@ grow_vertical = 2
 script = ExtResource("1_d4xrj")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=894583861]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 stream = ExtResource("1_64mme")
 autoplay = true
 loop = true
 
 [node name="Stage1" type="TextureButton" parent="." unique_id=671498133]
 layout_mode = 0
-offset_left = 85.0
-offset_top = 278.0
-offset_right = 341.0
-offset_bottom = 552.0
+offset_left = 60.0
+offset_top = 215.0
+offset_right = 270.0
+offset_bottom = 495.0
 texture_normal = ExtResource("2_6j7tf")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Stage2" type="TextureButton" parent="." unique_id=96546941]
 layout_mode = 0
-offset_left = 354.0
-offset_top = 260.0
-offset_right = 634.0
-offset_bottom = 540.0
+offset_left = 390.0
+offset_top = 215.0
+offset_right = 600.0
+offset_bottom = 495.0
 texture_normal = ExtResource("3_0idf7")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Stage3" type="TextureButton" parent="." unique_id=2042241146]
 layout_mode = 0
-offset_left = 635.0
-offset_top = 257.0
-offset_right = 915.0
-offset_bottom = 537.0
+offset_left = 720.0
+offset_top = 215.0
+offset_right = 930.0
+offset_bottom = 495.0
 texture_normal = ExtResource("4_fxkgh")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Stage4" type="TextureButton" parent="." unique_id=2009006487]
 layout_mode = 0
-offset_left = 933.0
-offset_top = 257.0
-offset_right = 1213.0
-offset_bottom = 537.0
+offset_left = 1050.0
+offset_top = 215.0
+offset_right = 1260.0
+offset_bottom = 495.0
 texture_normal = ExtResource("5_d4xrj")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 
 [node name="Kembali" type="TextureButton" parent="." unique_id=1211734086]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 473.0
-offset_right = 380.0
-offset_bottom = 853.0
-texture_normal = ExtResource("6_fxkgh")
+offset_left = 35.0
+offset_top = 585.0
+offset_right = 335.0
+offset_bottom = 665.0
+texture_normal = SubResource("AtlasTexture_back_button")
 ignore_texture_size = true
 stretch_mode = 0

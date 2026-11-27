@@ -33,7 +33,7 @@ const CHAPTER_LOCKED = [
 
 @export_file("*.tscn") var main_menu_scene: String = "res://scenes/main_menu/menu.tscn"
 
-@export_file("*.tscn") var chapter1_scene: String = "res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn"
+const STAGE_SELECT_SCENE := "res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn"
 
 
 # ==================================
@@ -77,6 +77,10 @@ func _ready():
 		animasi_card(card_menara, "Menara Vogs")
 	)
 
+	# Efek interaksi semua tombol chapter
+	for card in [card_dermaga, card_neon, card_dojo, card_menara, button_kembali]:
+		UIButtonEffects.apply(card)
+
 	# Hubungkan tombol kembali
 	button_kembali.pressed.connect(animasi_kembali)
 
@@ -86,7 +90,9 @@ func _ready():
 	animasi_floating(card_dojo, 0.6)
 	animasi_floating(card_menara, 0.9)
 
-	# Perbarui gambar dan status chapter
+	# Perbarui gambar dan status chapter setelah autoload selesai dimuat.
+	update_chapter_cards()
+	await get_tree().process_frame
 	update_chapter_cards()
 
 
@@ -112,21 +118,21 @@ func update_chapter_cards():
 			chapter_number
 		)
 
-		if terbuka:
+		_set_chapter_card_state(cards[i], i, terbuka)
 
-			# Tampilkan gambar normal
-			cards[i].texture_normal = CHAPTER_NORMAL[i]
-			cards[i].texture_disabled = null
 
-			cards[i].disabled = false
-
-		else:
-
-			# Tampilkan gambar terkunci
-			cards[i].texture_normal = CHAPTER_LOCKED[i]
-			cards[i].texture_disabled = CHAPTER_LOCKED[i]
-
-			cards[i].disabled = true
+func _set_chapter_card_state(card: TextureButton, index: int, terbuka: bool) -> void:
+	var texture: Texture2D = CHAPTER_NORMAL[index] if terbuka else CHAPTER_LOCKED[index]
+	if texture == null:
+		return
+	# Set semua state ke gambar yang sesuai sebelum mengubah disabled.
+	# TextureButton dapat mempertahankan cache state sebelumnya.
+	card.texture_normal = texture
+	card.texture_hover = texture
+	card.texture_pressed = texture
+	card.texture_disabled = texture
+	card.self_modulate = Color.WHITE
+	card.disabled = not terbuka
 
 
 # ==================================
@@ -197,12 +203,24 @@ func animasi_card(card: TextureButton, nama_chapter: String):
 
 	print("Chapter dipilih: ", nama_chapter)
 
-	# Masuk ke Chapter 1
+	var chapter_id := ""
 	if card == card_dermaga:
-		await transisi_ke_chapter(chapter1_scene)
+		chapter_id = "ch1"
+	elif card == card_neon:
+		chapter_id = "ch2"
+	elif card == card_dojo:
+		chapter_id = "ch3"
+	elif card == card_menara:
+		chapter_id = "ch4"
+	if chapter_id != "":
+		GameSession.reset()
+		GameSession.mode = GameSession.Mode.STORY
+		GameSession.chapter_id = chapter_id
+		GameSession.arena_id = chapter_id
+		GameSession.stage_index = 0
+		await transisi_ke_chapter(STAGE_SELECT_SCENE)
 		return
 
-	# Chapter lainnya belum diarahkan
 	sedang_diklik = false
 	update_chapter_cards()
 

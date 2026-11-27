@@ -8,5 +8,5 @@ id = "ch2"
 title = "Lorong Neon"
 arena_bg = "res://assets/backgrounds/lorong_neon.png"
 arena_bgm = "res://assets/audio/Chapter 2 BGM.mp3"
-stages = Array[String](["geng_jalanan", "akrobat", "geng_jalanan"])
+stages = Array[String](["dmitri", "lin", "nok"])
 boss_id = "ular_neon"
