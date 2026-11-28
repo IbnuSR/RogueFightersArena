@@ -48,7 +48,8 @@ var sedang_diklik = false
 # ==================================
 
 func _ready():
-	
+	# Musik Main Menu hanya untuk scene menu utama, bukan layar pilih chapter.
+	Audio.stop_music()
 	GameSession.mode = GameSession.Mode.STORY
 	print("MODE SAAT PILIH CHAPTER: ", GameSession.mode)
 	
@@ -281,122 +282,20 @@ func animasi_kembali():
 
 	await tween.finished
 
-	await transisi_ke_menu()
+	await transisi_ke_menu(main_menu_scene)
 
 
 # ==================================
 # TRANSISI KE MAIN MENU
 # ==================================
 
-func transisi_ke_menu():
-
-	var tree = get_tree()
-
-	var layer = CanvasLayer.new()
-	layer.layer = 100
-	tree.root.add_child(layer)
-
-	var layar = ColorRect.new()
-	layar.color = Color(0, 0, 0, 0)
-	layar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	layar.set_anchors_and_offsets_preset(
-		Control.PRESET_FULL_RECT
-	)
-
-	layer.add_child(layar)
-
-	# Fade Out
-	var fade_out = tree.create_tween()
-
-	fade_out.tween_property(
-		layar,
-		"color",
-		Color(0, 0, 0, 1),
-		0.5
-	)
-
-	await fade_out.finished
-
-	# Pindah Main Menu
-	var error = tree.change_scene_to_file(main_menu_scene)
-
-	if error != OK:
-		push_error("Gagal membuka Main Menu: " + str(error))
-		layer.queue_free()
-		return
-
-	await tree.process_frame
-
-	# Fade In
-	var fade_in = tree.create_tween()
-
-	fade_in.tween_property(
-		layar,
-		"color",
-		Color(0, 0, 0, 0),
-		0.7
-	)
-
-	await fade_in.finished
-
-	layer.queue_free()
+func transisi_ke_menu(main_menu_scene: String) -> void:
+	SceneManager.change_scene(main_menu_scene)
 
 
 # ==================================
 # TRANSISI KE CHAPTER
 # ==================================
 
-func transisi_ke_chapter(target_scene: String):
-
-	var tree = get_tree()
-
-	var layer = CanvasLayer.new()
-	layer.layer = 100
-	tree.root.add_child(layer)
-
-	var layar = ColorRect.new()
-	layar.color = Color(0, 0, 0, 0)
-	layar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	layar.set_anchors_and_offsets_preset(
-		Control.PRESET_FULL_RECT
-	)
-
-	layer.add_child(layar)
-
-	# Fade Out
-	var fade = tree.create_tween()
-
-	fade.tween_property(
-		layar,
-		"color",
-		Color(0, 0, 0, 1),
-		0.5
-	)
-
-	await fade.finished
-
-	# Pindah Chapter
-	var error = tree.change_scene_to_file(target_scene)
-
-	if error != OK:
-		push_error("Gagal membuka Chapter: " + str(error))
-		layer.queue_free()
-		return
-
-	await tree.process_frame
-
-	# Fade In
-	var fade_in = tree.create_tween()
-
-	fade_in.tween_property(
-		layar,
-		"color",
-		Color(0, 0, 0, 0),
-		0.7
-	)
-
-	await fade_in.finished
-
-	layer.queue_free()
+func transisi_ke_chapter(target_scene: String) -> void:
+	SceneManager.change_scene(target_scene)

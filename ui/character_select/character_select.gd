@@ -78,6 +78,8 @@ var _cells: Dictionary = {}
 # =========================================================
 
 func _ready() -> void:
+	# Hentikan musik Main Menu saat memilih karakter.
+	Audio.stop_music()
 
 	print("========== CEK CHARACTER SELECT ==========")
 	print("MODE GAME: ", GameSession.mode)
@@ -93,7 +95,6 @@ func _ready() -> void:
 
 	print("==========================================")
 
-	Audio.play_music("bgm_menu")
 	Audio.play_sfx("choose_your_character", -2.0)
 
 	_build()

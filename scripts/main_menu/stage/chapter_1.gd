@@ -7,6 +7,8 @@ extends Control
 var _stage_transitioning := false
 
 func _ready() -> void:
+	# Hentikan musik Main Menu saat berada di layar pilih stage.
+	Audio.stop_music()
 	GameSession.mode = GameSession.Mode.STORY
 	UIButtonEffects.apply(back_button)
 	back_button.pressed.connect(_on_back_pressed)
@@ -73,7 +75,7 @@ func _on_stage_pressed(index: int) -> void:
 	await tween.finished
 	GameSession.stage_index = index
 	GameSession.arena_id = GameSession.chapter_id
-	get_tree().change_scene_to_file("res://ui/character_select/character_select.tscn")
+	SceneManager.change_scene("res://ui/character_select/character_select.tscn")
 
 func _on_back_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn")
+	SceneManager.change_scene("res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn")

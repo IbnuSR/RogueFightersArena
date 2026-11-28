@@ -17,7 +17,7 @@ var _reset_timer: float = 0.0
 
 
 func _ready() -> void:
-	Audio.play_music("bgm_menu")
+	Audio.stop_music()
 	_build()
 
 

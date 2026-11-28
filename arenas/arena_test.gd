@@ -14,6 +14,8 @@ const WINS_REQUIRED := 2
 @onready var timer_label: Label = $HUD/TimerLabel
 @onready var countdown_label: Label = $CanvasLayer/CountdownLabel
 @onready var background: Sprite2D = $Background
+@onready var video_background: VideoStreamPlayer = $VideoBackground
+
 @onready var camera: Camera2D = $Camera2D
 
 @onready var p1_win_1: ColorRect = $HUD/P1Win1
@@ -299,14 +301,22 @@ func _update_timer_label() -> void:
 
 
 func _set_background() -> void:
-	# Chapter 1 memiliki background khusus untuk setiap stage.
-	# stage_index 0-3 berarti Stage 1-4.
-	if _is_story() and GameSession.chapter_id == "ch1" and background:
+	if video_background:
+		video_background.visible = false
+	# Chapter 1 mencoba video stage terlebih dahulu; JPG menjadi fallback.
+	if _is_story() and GameSession.chapter_id == "ch1":
 		var stage_number := clampi(GameSession.stage_index + 1, 1, 4)
 		var stage_path := "res://assets/backgrounds/chapter1/stage%d.jpg" % stage_number
-		if ResourceLoader.exists(stage_path):
+		var video_path := "res://assets/backgrounds/chapter1/stage%d.ogv" % stage_number
+		if background and ResourceLoader.exists(stage_path):
 			background.texture = load(stage_path)
-			return
+			background.visible = true
+		if video_background and ResourceLoader.exists(video_path):
+			video_background.stream = load(video_path)
+			video_background.visible = true
+			video_background.play()
+		return
+
 
 	# Chapter lain memakai background chapter dari data chapter.
 	if GameSession.arena_id != "":
@@ -609,8 +619,8 @@ func _on_quit_to_menu() -> void:
 	Engine.time_scale = 1.0
 	if _is_story():
 		if _story_chapter_done:
-			get_tree().change_scene_to_file("res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn")
+			SceneManager.change_scene("res://scenes/main_menu/pilih_chapter/pilih_chapter.tscn")
 		else:
-			get_tree().change_scene_to_file("res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn")
+			SceneManager.change_scene("res://scenes/main_menu/pilih_chapter/chapter1/chapter1.tscn")
 	else:
-		get_tree().change_scene_to_file("res://scenes/main_menu/menu.tscn")
+		SceneManager.change_scene("res://scenes/main_menu/menu.tscn")
