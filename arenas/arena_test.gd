@@ -299,9 +299,16 @@ func _update_timer_label() -> void:
 
 
 func _set_background() -> void:
-	# Story Mode: pakai background chapter (GameSession.arena_id = ch1/ch2/ch3,
-	# path diambil dari data/chapters/<id>.tres -> arena_bg). Kalau tidak ada,
-	# jatuh ke daftar lama yang berputar tiap ronde.
+	# Chapter 1 memiliki background khusus untuk setiap stage.
+	# stage_index 0-3 berarti Stage 1-4.
+	if _is_story() and GameSession.chapter_id == "ch1" and background:
+		var stage_number := clampi(GameSession.stage_index + 1, 1, 4)
+		var stage_path := "res://assets/backgrounds/chapter1/stage%d.jpg" % stage_number
+		if ResourceLoader.exists(stage_path):
+			background.texture = load(stage_path)
+			return
+
+	# Chapter lain memakai background chapter dari data chapter.
 	if GameSession.arena_id != "":
 		var chapter: ChapterData = load("res://data/chapters/%s.tres" % GameSession.arena_id)
 		if chapter and chapter.arena_bg != "" and background:
